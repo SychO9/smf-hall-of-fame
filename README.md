@@ -3,7 +3,9 @@ SMF Mod to Showcase Notable Members
 
 ## INTRODUCTION
 SMF Hall Of Fame
+
 By: SychO (M.S)
+
 Portfolio: http://sycho.22web.org
 
 ## Copyright 2018

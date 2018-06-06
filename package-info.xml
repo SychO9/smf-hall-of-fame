@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>SychO:Hof</id>
+	<name>Hall Of Fame</name>
+	<type>modification</type>
+	<version>1.0</version>	
+	
+	<install for="2.0 - 2.0.99,2.0 RC2,2.0 RC3,2.0 RC4,2.0 RC5">
+		<redirect url="?action=admin;area=hof;sa=admin">redirect.txt</redirect>
+		<readme>README.txt</readme>
+		<modification type="file">Hof.xml</modification>
+		<require-file name="Hof.php" destination="$sourcedir" />
+		<require-dir name="Themes" destination="$boarddir" />
+		<code>HofSQL.php</code>
+	
+	</install>
+	
+	<uninstall for="2.0 - 2.0.99,2.0 RC2,2.0 RC3,2.0 RC4,2.0 RC5">
+		<modification type="file" reverse="true">Hof.xml</modification>
+		<remove-file name="Themes/default/Hof.template.php" />
+		<remove-file name="Themes/default/languages/Hof.english.php" />
+		<remove-file name="Themes/default/images/admin/hof.png" />
+		<remove-file name="Themes/default/images/admin/hof_remove.png" />
+		<remove-file name="Themes/default/images/admin/hof_user.png" />
+		<remove-file name="Themes/default/images/admin/hof_list.png" />
+		<remove-file name="Themes/default/images/admin/hof_grid.png" />
+		<remove-file name="Sources/Hof.php" />
+	</uninstall>
+
+</package-info>

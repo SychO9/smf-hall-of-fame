@@ -1,5 +1,4 @@
 <?php
-<?php
 /* --------------------- AUTHOR:
 /* SYCHO (M.S)
 /* SMF Hall Of Fame (HOF)
@@ -62,7 +61,7 @@ function template_layout1() {
 				echo'
 				<div class="hof_member">
 					<div class="hof_mImage">', !empty($memberContext[$hof_member]['avatar']['image']) ? $memberContext[$hof_member]['avatar']['image'] : '<img src="'.$settings['default_theme_url'].'/images/admin/hof_user.png" />', '</div>
-					<div class="hof_who"><h4><a href="', $scripturl, '?action=profile;id=', $data['ID_MEMBER'], '">', $data['realName'], '</a></h4><div>', $dateR[0], ', ', $dateR[1], '</div></div>
+					<div class="hof_who"><h4><a href="', $scripturl, '?action=profile;u=', $data['ID_MEMBER'], '">', $data['realName'], '</a></h4><div>', $dateR[0], ', ', $dateR[1], '</div></div>
 				</div>';
 			}
 			
@@ -122,7 +121,7 @@ function template_layout2() {
 					if(!empty($context['hof_famers'][$data['id']]))
 						foreach($context['hof_famers'][$data['id']] as $id=>$data) {
 							echo '
-							<a href="', $scripturl, '?action=profile;id=', $data['ID_MEMBER'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
+							<a href="', $scripturl, '?action=profile;u=', $data['ID_MEMBER'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
 								'.$data['realName'].'
 							</a>';
 						}

@@ -63,4 +63,15 @@ $txt['whoall_hof'] = 'Viewing the <a href="' . $scripturl . '?action=hof">Hall O
 ]]></add>
 	</operation>
 </file>
+<file name="$sourcedir/Who.php">
+		<operation>
+			<search position="before"><![CDATA[
+		'mods' => array(]]></search>
+			<add><![CDATA[
+			// BEGIN MOD SMF HallOfFame
+			'<a href="http://custom.simplemachines.org/mods/index.php?mod=4185" target="_blank" class="new_win">SMF Hall Of Fame</a>, 1.0 &copy; 2018, SychO',
+			// END MOD SMF HallOfFame
+]]></add>
+		</operation>
+	</file>
 </modification>

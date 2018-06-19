@@ -93,13 +93,13 @@ function template_layout1() {
 		.hof_who {padding: 10px 0;}
 		.hof_who div {font-size: 11px;}
 		.hof_member:hover .hof_mImage img {opacity: 1;}
-		.hof_mImage img {width: 100%;height: 100%;opacity: 0.8;}
+		.hof_mImage img {width: 100%;height: 100%;opacity: 0.8;vertical-align: text-bottom;border-radius: 0;-webkit-border-radius: 0;-moz-border-radius: 0;-ms-border-radius: 0;-o-border-radius: 0;}
 	</style>';
 }
 /* Our Second Layout.
 ------------------------ */
 function template_layout2() {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc;
 	
 	$permit = allowedTo('admin_forum');
 	
@@ -149,12 +149,12 @@ function template_layout2() {
 /* Admin Page.
 ------------------------ */
 function template_adminset() {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $settings, $options, $txt, $scripturl, $modSettings, $smcFunc;
 	
 	echo'<link rel="stylesheet" type="text/css" href="', $settings['default_theme_url'], '/css/admin.css?fin20" />';
 	
 	$STATE = !empty($_REQUEST['state']) ? $_REQUEST['state'] : null;
-	$MESSAGE = !empty($_REQUEST['message']) ? $_REQUEST['message'] : null;
+	$MESSAGE = !empty($_REQUEST['message']) ? $smcFunc['htmlspecialchars']($_REQUEST['message']) : null;
 	if(!empty($STATE)) {
 		if($STATE == "success")
 			echo'<div class="windowbg" id="profile_success">
@@ -163,7 +163,7 @@ function template_adminset() {
 		else {
 			echo'<div class="errorbox">';
 				if(!empty($MESSAGE))
-					echo'<strong>', str_replace("%20", " " , $MESSAGE), '</strong><br/>';
+					echo'<strong>', $MESSAGE, '</strong><br/>';
 				else 
 					echo'<strong>', $txt['hof_error_unknown'], '</strong><br/>';
 					

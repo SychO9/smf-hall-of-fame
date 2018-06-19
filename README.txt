@@ -21,7 +21,7 @@ Version 1.0
 Creation Of The Mod
 
 ## IMAGES & ICONS
-All images and icons come from iconfinder.com and are free for use.
+All images and icons Were Created by Paomedia, and are free for use under the Creative Commons (Attribution 3.0 Unported) License 
 
 ## END
 To Be Updated.

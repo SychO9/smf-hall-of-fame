@@ -50,7 +50,7 @@ function Hof() {
 	);
 	
 	// Take Me To The SubAction ?
-	if (!empty($subActions[@$_GET['sa']]))
+	if (!empty($_GET['sa']) && !empty($subActions[$_GET['sa']]))
 		$subActions[$_GET['sa']]();
 	else
 		ViewHof();
@@ -65,9 +65,10 @@ function addClass() {
 	// Permit
 	isAllowedTo('admin_forum');
 	
-	// Values.
-	$title = (string) $_POST['title'];
-	$description = (string) $_POST['description'];
+	// Sanitize
+	$title = $smcFunc['htmlspecialchars']($_POST['title'], ENT_QUOTES);
+	$description = !empty($_POST['description']) ? $smcFunc['htmlspecialchars']($_POST['description'], ENT_QUOTES) : '';
+	
 	
 	if(!empty($title)) {
 		$smcFunc['db_insert']('insert',
@@ -94,11 +95,23 @@ function removeClass() {
 	$ID = (int) $_REQUEST['id'];
 	
 	if($ID!="") {
-		$smcFunc['db_query']('', "DELETE FROM {db_prefix}hof_classes 
-				WHERE id_class = " . $ID);
+		// first Delete the class itself
+		$smcFunc['db_query']('', "
+			DELETE FROM {db_prefix}hof_classes 
+			WHERE id_class = {int:id}",
+			array(
+				'id' => $ID,
+			)
+		);
 		
-		$smcFunc['db_query']('', "DELETE FROM {db_prefix}hof
-					WHERE id_class = " . $ID);
+		// Second Delete users that belong to the class
+		$smcFunc['db_query']('', "
+			DELETE FROM {db_prefix}hof
+			WHERE id_class = {int:id}",
+			array(
+				'id' => $ID,
+			)
+		);
 		redirectexit('action=admin;area=hof;sa=admin;state=success');
 	} else			
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
@@ -109,10 +122,11 @@ function updateClass() {
 	global $context, $settings, $scripturl, $txt, $db_prefix, $options, $user_info;
 	global $modSettings, $smcFunc, $memberContext;
 	isAllowedTo('admin_forum');
-	// Values.
+	
+	// Sanitize
 	$id = (int) $_POST['id'];
-	$title = (string) $_POST['title'];
-	$description = (string) $_POST['description'];
+	$title = $smcFunc['htmlspecialchars']($_POST['title'], ENT_QUOTES);
+	$description = !empty($_POST['description']) ? $smcFunc['htmlspecialchars']($_POST['description'], ENT_QUOTES) : '';
 	
 	if(!empty($title)) {
 		$smcFunc['db_insert']('replace',
@@ -137,22 +151,34 @@ function addFamer() {
 	isAllowedTo('admin_forum');
 	// Values.
 	$MEMBER_NAME = $_POST['famer'];
+	// QUERY
 	$query = $smcFunc['db_query']('', "
 		SELECT id_member
 		FROM {db_prefix}members
-		WHERE real_name = '".$MEMBER_NAME."'");
+		WHERE real_name = {string:member_name}",
+		array(
+			'member_name' => $smcFunc['htmlspecialchars']($MEMBER_NAME, ENT_QUOTES), // Sanitized
+		)
+	);
 	$ID_MEMBER = (int) $smcFunc['db_fetch_assoc']($query)['id_member'];
 	$smcFunc['db_free_result']($query);
 	
+	// Sanitize Numeric
 	$CLASS = (int) $_POST['class'];
 	$DATE = (int) $_POST['date'];
 	
 	$query2 = $smcFunc['db_query']('', "
 		SELECT COUNT(*) AS count 
 		FROM {db_prefix}hof 
-		WHERE id_member = ".$ID_MEMBER." 
-			AND id_class = ".$CLASS."");
+		WHERE id_member = {int:id_mem} 
+			AND id_class = {int:class}",
+		array(
+			'id_mem' => $ID_MEMBER,
+			'class' => $CLASS,
+		)
+	);
 	$count = $smcFunc['db_fetch_assoc']($query2)['count'];
+	$smcFunc['db_free_result']($query2);
 	$duplicate = $count > 0;
 	
 	if(!empty($ID_MEMBER) && !empty($DATE) && !$duplicate) {
@@ -182,8 +208,16 @@ function removeFamer() {
 	$ID = (int) $_REQUEST['id'];
 	$CLASS = (int) $_REQUEST['class'];
 	if(!empty($ID)) {
-		$smcFunc['db_query']('', "DELETE FROM {db_prefix}hof
-				WHERE id_member = " . $ID . " AND id_class = " . $CLASS . "");
+		$smcFunc['db_query']('', "
+			DELETE FROM {db_prefix}hof
+			WHERE id_member = {int:id}
+				AND id_class = {int:class}",
+			array(
+				'id' => $ID,
+				'class' => $CLASS,
+			)
+		);
+		
 		redirectexit('action=admin;area=hof;sa=admin;state=success');
 	} else			
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
@@ -223,12 +257,16 @@ function ViewHof() {
 	foreach ($classes as $id => $data) 	{
 		
 		$query2 = $smcFunc['db_query']('', "
-		SELECT 
-			m.ID_GROUP, m.avatar, m.ID_MEMBER, m.real_name, m.email_address, m.hide_email, m.date_registered, h.id_member, h.date_added, h.id_class
-		FROM ({db_prefix}members as m, {db_prefix}hof as h) 
-		WHERE h.id_member = m.ID_MEMBER
-			AND h.id_class = ".$data['id']."
-		ORDER BY h.date_added");
+			SELECT 
+				m.ID_GROUP, m.avatar, m.ID_MEMBER, m.real_name, m.email_address, m.hide_email, m.date_registered, h.id_member, h.date_added, h.id_class
+			FROM ({db_prefix}members as m, {db_prefix}hof as h) 
+			WHERE h.id_member = m.ID_MEMBER
+				AND h.id_class = {int:class}
+			ORDER BY h.date_added",
+			array(
+				'class' => $data['id'],
+			)
+		);
 		while ($row2 = $smcFunc['db_fetch_assoc']($query2)) {
 			
 			$famers[$data['id']][] = array(
@@ -267,7 +305,7 @@ function HofSettings() {
 	if(isset($_REQUEST['active'])) {
 		updateSettings(
 			array(
-				'hof_active' => $_REQUEST['active'],
+				'hof_active' => (int) $_REQUEST['active'],
 			)
 		);
 	}
@@ -276,7 +314,7 @@ function HofSettings() {
 	
 	// Get all the Classes
 	$classes = array();
-	// Does all the real work.
+	// QUERY
 	$query = $smcFunc['db_query']('', "
 	SELECT id_class, title, description
 	FROM {db_prefix}hof_classes");
@@ -296,12 +334,16 @@ function HofSettings() {
 	foreach ($classes as $id => $data) {
 		
 		$query2 = $smcFunc['db_query']('', "
-		SELECT 
-			m.ID_GROUP, m.avatar, m.ID_MEMBER, m.real_name, m.email_address, m.hide_email, m.posts, m.last_login, m.date_registered, h.id_member, h.date_added, h.id_class
-		FROM ({db_prefix}members as m, {db_prefix}hof as h) 
-		WHERE h.id_member = m.ID_MEMBER
-			AND h.id_class = ".$data['id']."
-		ORDER BY h.date_added");
+			SELECT 
+				m.ID_GROUP, m.avatar, m.ID_MEMBER, m.real_name, m.email_address, m.hide_email, m.posts, m.last_login, m.date_registered, h.id_member, h.date_added, h.id_class
+			FROM ({db_prefix}members as m, {db_prefix}hof as h) 
+			WHERE h.id_member = m.ID_MEMBER
+				AND h.id_class = {int:class}
+			ORDER BY h.date_added",
+			array(
+				'class' => $data['id'],
+			)
+		);
 		while ($row2 = $smcFunc['db_fetch_assoc']($query2)) {
 			
 			$famers[$data['id']][] = array(
@@ -347,7 +389,11 @@ function editClass() {
 	$query = $smcFunc['db_query']('', "
 		SELECT id_class, title, description
 		FROM {db_prefix}hof_classes 
-		WHERE id_class = ".$CLASS."");
+		WHERE id_class = {int:class}",
+		array(
+			'class' => $CLASS,
+		)
+	);
 	while($row = $smcFunc['db_fetch_assoc']($query) ) {
 		$class_content = array(
 			'id' => $row['id_class'],
@@ -359,7 +405,7 @@ function editClass() {
 	
 	$context['hof_current_class'] = $class_content;
 }
-/* Security.
+/* (C)
 ----------------- */
 function hexToStr($hex){
     $string='';

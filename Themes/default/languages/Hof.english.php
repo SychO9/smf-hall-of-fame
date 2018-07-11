@@ -19,6 +19,7 @@ $txt['hof'] = "Hall Of Fame";
 $txt['hof_famer'] = "User";
 $txt['hof_title'] = "Title";
 $txt['hof_description'] = "Description, Keep it short !";
+$txt['hof_submit'] = "Submit";
 $txt['hof_add_famer'] = "Add a User:";
 $txt['hof_add_class'] = "Add a Class:";
 $txt['hof_edit_class'] = "Edit Class";

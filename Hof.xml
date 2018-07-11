@@ -27,28 +27,6 @@
 ]]></add>
 	</operation>
 </file>
-<file name="$languagedir/Modifications.english.php">
-	<operation>
-		<search position="after"><![CDATA[?>]]></search>
-		<add><![CDATA[
-// Hall Of Fame.
-$txt['hof_admin'] = "HOF Admin Page";
-$txt['hof'] = "Hall Of Fame";
-]]></add>
-	</operation>
-</file>
-
-<file name="$languagedir/Who.english.php">
-	<operation error="ignore">
-		<search position="after"><![CDATA[
-?>]]></search>
-		<add><![CDATA[
-// Hall Of Fame
-$txt['whoall_hof'] = 'Viewing the <a href="' . $scripturl . '?action=hof">Hall Of Fame</a> Page';	
-]]></add>
-	</operation>
-</file>
-
 <file name="$sourcedir/Subs.php">
 	<operation>
 		<search position="after"><![CDATA['mlist' => array(]]></search>
@@ -74,4 +52,73 @@ $txt['whoall_hof'] = 'Viewing the <a href="' . $scripturl . '?action=hof">Hall O
 ]]></add>
 		</operation>
 	</file>
+	
+	
+<!-- --------- STRINGS --------- -->
+<!-- English -->
+
+
+<file name="$languagedir/Modifications.english.php">
+	<operation>
+		<search position="before"><![CDATA[// Version: 2.0; Modifications]]></search>
+		<add><![CDATA[
+// Hall Of Fame.
+$txt['hof_admin'] = "HOF Admin Page";
+$txt['hof'] = "Hall Of Fame";
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Who.english.php">
+	<operation error="ignore">
+		<search position="end"></search>
+		<add><![CDATA[
+// Hall Of Fame
+$txt['whoall_hof'] = 'Viewing the <a href="' . $scripturl . '?action=hof">Hall Of Fame</a> Page';	
+]]></add>
+	</operation>
+</file>
+
+
+<!-- Spanish -->
+
+
+<file name="$languagedir/Modifications.spanish_latin.php" error="skip">
+	<operation>
+		<search position="before"><![CDATA[// Version: 2.0; Modifications]]></search>
+		<add><![CDATA[
+// Hall Of Fame.
+$txt['hof_admin'] = "Salón de la fama administraci&oacute;n";
+$txt['hof'] = "Sal&oacute;n de la Fama";
+]]></add>
+	</operation>
+</file>
+
+<file name="$languagedir/Modifications.spanish_latin-utf8.php" error="skip">
+	<operation>
+		<search position="before"><![CDATA[// Version: 2.0; Modifications]]></search>
+		<add><![CDATA[
+// Hall Of Fame.
+$txt['hof_admin'] = "Salón de la fama administración";
+$txt['hof'] = "Salón de la Fama";
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Who.spanish_latin.php" error="skip">
+	<operation error="ignore">
+		<search position="end"></search>
+		<add><![CDATA[
+// Hall Of Fame
+$txt['whoall_hof'] = 'Viendo el <a href="' . $scripturl . '?action=hof">Sal&oacute;n de la Fama</a> Page';	
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Who.spanish_latin-utf8.php" error="skip">
+	<operation error="ignore">
+		<search position="end"></search>
+		<add><![CDATA[
+// Hall Of Fame
+$txt['whoall_hof'] = 'Viendo el <a href="' . $scripturl . '?action=hof">Salón de la Fama</a> Page';	
+]]></add>
+	</operation>
+</file>
 </modification>

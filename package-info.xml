@@ -7,17 +7,16 @@
 	<type>modification</type>
 	<version>1.0</version>	
 	
-	<install for="2.0 - 2.0.99,2.0 RC2,2.0 RC3,2.0 RC4,2.0 RC5">
+	<install for="2.0 - 2.0.99">
 		<redirect url="?action=admin;area=hof;sa=admin">redirect.txt</redirect>
-		<readme>README.txt</readme>
+		<readme parsebbc="true">README.txt</readme>
 		<modification type="file">Hof.xml</modification>
 		<require-file name="Hof.php" destination="$sourcedir" />
 		<require-dir name="Themes" destination="$boarddir" />
-		<code>HofSQL.php</code>
-	
+		<database type="file">HofDBInstall.php</database>
 	</install>
 	
-	<uninstall for="2.0 - 2.0.99,2.0 RC2,2.0 RC3,2.0 RC4,2.0 RC5">
+	<uninstall for="2.0 - 2.0.99">
 		<modification type="file" reverse="true">Hof.xml</modification>
 		<remove-file name="Themes/default/Hof.template.php" />
 		<remove-file name="Themes/default/languages/Hof.english.php" />
@@ -27,6 +26,7 @@
 		<remove-file name="Themes/default/images/admin/hof_list.png" />
 		<remove-file name="Themes/default/images/admin/hof_grid.png" />
 		<remove-file name="Sources/Hof.php" />
+		<database type="file">HofDBUninstall.php</database>
 	</uninstall>
 
 </package-info>

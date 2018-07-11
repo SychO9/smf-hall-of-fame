@@ -24,7 +24,7 @@ function Hof() {
 	global $context, $scripturl, $txt, $smcFunc;
 	
 	// For Starters Let's Not forget about the author's ...
-	$context['key'] = "48616c6c206f662046616d65204d6f64652043726561746564206279203c6120687265663d22687474703a2f2f737963686f2e32327765622e6f72672f22207461726765743d225f626c616e6b223e537963684f3c2f613e";
+	$context['key'] = "48616c6c206f662046616d65204d6f64652043726561746564206279203c6120687265663d22687474703a2f2f737963686f2e32327765622e6f72672f3f7265663d7365747570686f66666f72756d646f6e6522207461726765743d225f626c616e6b223e537963684f3c2f613e";
 	
 	// Template, Language
 	loadtemplate('Hof');
@@ -66,7 +66,7 @@ function addClass() {
 	isAllowedTo('admin_forum');
 	
 	// Sanitize
-	$title = $smcFunc['htmlspecialchars']($_POST['title'], ENT_QUOTES);
+	$title = !empty($_POST['title']) ? $smcFunc['htmlspecialchars']($_POST['title'], ENT_QUOTES) : '';
 	$description = !empty($_POST['description']) ? $smcFunc['htmlspecialchars']($_POST['description'], ENT_QUOTES) : '';
 	
 	
@@ -92,9 +92,9 @@ function removeClass() {
 	global $modSettings, $smcFunc, $memberContext;
 	isAllowedTo('admin_forum');
 	// Values.
-	$ID = (int) $_REQUEST['id'];
+	$ID = (isset($_REQUEST['id']) && !empty($_REQUEST['id'])) ? ((int)$_REQUEST['id']) : 0;
 	
-	if($ID!="") {
+	if($ID!=0) {
 		// first Delete the class itself
 		$smcFunc['db_query']('', "
 			DELETE FROM {db_prefix}hof_classes 
@@ -124,11 +124,11 @@ function updateClass() {
 	isAllowedTo('admin_forum');
 	
 	// Sanitize
-	$id = (int) $_POST['id'];
-	$title = $smcFunc['htmlspecialchars']($_POST['title'], ENT_QUOTES);
+	$id = !empty($_POST['id']) ? (int)$_POST['id'] : 0;
+	$title = !empty($_POST['title']) ? $smcFunc['htmlspecialchars']($_POST['title'], ENT_QUOTES) : '';
 	$description = !empty($_POST['description']) ? $smcFunc['htmlspecialchars']($_POST['description'], ENT_QUOTES) : '';
 	
-	if(!empty($title)) {
+	if(!empty($title) && $id!=0) {
 		$smcFunc['db_insert']('replace',
 			'{db_prefix}hof_classes',
 			array(
@@ -150,52 +150,55 @@ function addFamer() {
 	global $modSettings, $smcFunc, $memberContext;
 	isAllowedTo('admin_forum');
 	// Values.
-	$MEMBER_NAME = $_POST['famer'];
+	$MEMBER_NAME = !empty($_POST['famer']) ? $smcFunc['htmlspecialchars']($_POST['famer'], ENT_QUOTES) : '';
+	
 	// QUERY
-	$query = $smcFunc['db_query']('', "
-		SELECT id_member
-		FROM {db_prefix}members
-		WHERE real_name = {string:member_name}",
-		array(
-			'member_name' => $smcFunc['htmlspecialchars']($MEMBER_NAME, ENT_QUOTES), // Sanitized
-		)
-	);
-	$ID_MEMBER = (int) $smcFunc['db_fetch_assoc']($query)['id_member'];
-	$smcFunc['db_free_result']($query);
-	
-	// Sanitize Numeric
-	$CLASS = (int) $_POST['class'];
-	$DATE = (int) $_POST['date'];
-	
-	$query2 = $smcFunc['db_query']('', "
-		SELECT COUNT(*) AS count 
-		FROM {db_prefix}hof 
-		WHERE id_member = {int:id_mem} 
-			AND id_class = {int:class}",
-		array(
-			'id_mem' => $ID_MEMBER,
-			'class' => $CLASS,
-		)
-	);
-	$count = $smcFunc['db_fetch_assoc']($query2)['count'];
-	$smcFunc['db_free_result']($query2);
-	$duplicate = $count > 0;
-	
-	if(!empty($ID_MEMBER) && !empty($DATE) && !$duplicate) {
-		$smcFunc['db_insert']('insert',
-			'{db_prefix}hof',
+	if(!empty($MEMBER_NAME)) {
+		$query = $smcFunc['db_query']('', "
+			SELECT id_member
+			FROM {db_prefix}members
+			WHERE real_name = {string:member_name}",
 			array(
-				'id_member' => 'int', 'date_added' => 'int', 'id_class' => 'int',
-			),
-			array(
-				$ID_MEMBER, $DATE, $CLASS,
-			),
-			array('id_member', 'id_class')
+				'member_name' => $MEMBER_NAME, // Sanitized
+			)
 		);
-		redirectexit('action=admin;area=hof;sa=admin;state=success');
-	} elseif($duplicate)
-		redirectexit('action=admin;area=hof;sa=admin;state=fail;message=User%20Already%20In%20Class');
-	else redirectexit('action=admin;area=hof;sa=admin;state=fail');
+		$ID_MEMBER = (int) $smcFunc['db_fetch_assoc']($query)['id_member'];
+		$smcFunc['db_free_result']($query);
+		
+		// Sanitize Numeric
+		$CLASS = !empty($_POST['class']) ? (int)$_POST['class'] : 0;
+		$DATE = !empty($_POST['date']) ? (int)$_POST['date'] : 0;
+		
+		$query2 = $smcFunc['db_query']('', "
+			SELECT COUNT(*) AS count 
+			FROM {db_prefix}hof 
+			WHERE id_member = {int:id_mem} 
+				AND id_class = {int:class}",
+			array(
+				'id_mem' => $ID_MEMBER,
+				'class' => $CLASS,
+			)
+		);
+		$count = $smcFunc['db_fetch_assoc']($query2)['count'];
+		$smcFunc['db_free_result']($query2);
+		$duplicate = $count > 0;
+		
+		if($ID_MEMBER!=0 && $DATE!=0 && !$duplicate) {
+			$smcFunc['db_insert']('insert',
+				'{db_prefix}hof',
+				array(
+					'id_member' => 'int', 'date_added' => 'int', 'id_class' => 'int',
+				),
+				array(
+					$ID_MEMBER, $DATE, $CLASS,
+				),
+				array('id_member', 'id_class')
+			);
+			redirectexit('action=admin;area=hof;sa=admin;state=success');
+		} elseif($duplicate)
+			redirectexit('action=admin;area=hof;sa=admin;state=fail;message=User%20Already%20In%20Class');
+		else redirectexit('action=admin;area=hof;sa=admin;state=fail');
+	} else redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
 /* Remove a Member from a HOF Class.
 ---------------------------------------- */
@@ -205,9 +208,9 @@ function removeFamer() {
 	isAllowedTo('admin_forum');
 
 	// Values.
-	$ID = (int) $_REQUEST['id'];
-	$CLASS = (int) $_REQUEST['class'];
-	if(!empty($ID)) {
+	$ID = (isset($_REQUEST['id']) && !empty($_REQUEST['id'])) ? (int)$_REQUEST['id'] : 0;
+	$CLASS = (isset($_REQUEST['class']) && !empty($_REQUEST['class'])) ? (int)$_REQUEST['class'] : 0;
+	if($ID!=0 && $CLASS!=0) {
 		$smcFunc['db_query']('', "
 			DELETE FROM {db_prefix}hof
 			WHERE id_member = {int:id}
@@ -381,37 +384,40 @@ function editClass() {
 	
 	isAllowedTo('admin_forum');
 	
-	$CLASS = (int) $_REQUEST['class'];
+	$CLASS = (isset($_REQUEST['class']) && !empty($_REQUEST['class'])) ? (int)$_REQUEST['class'] : 0;
 	
 	$context['sub_template']  = 'editClass';
-	
-	$class_content = array();
-	$query = $smcFunc['db_query']('', "
-		SELECT id_class, title, description
-		FROM {db_prefix}hof_classes 
-		WHERE id_class = {int:class}",
-		array(
-			'class' => $CLASS,
-		)
-	);
-	while($row = $smcFunc['db_fetch_assoc']($query) ) {
-		$class_content = array(
-			'id' => $row['id_class'],
-			'title' => $row['title'],
-			'description' => $row['description']
+	if($CLASS!=0) {
+		$class_content = array();
+		$query = $smcFunc['db_query']('', "
+			SELECT id_class, title, description
+			FROM {db_prefix}hof_classes 
+			WHERE id_class = {int:class}",
+			array(
+				'class' => $CLASS,
+			)
 		);
-	}
-	$smcFunc['db_free_result']($query);
-	
-	$context['hof_current_class'] = $class_content;
+		while($row = $smcFunc['db_fetch_assoc']($query) ) {
+			$class_content = array(
+				'id' => $row['id_class'],
+				'title' => $row['title'],
+				'description' => $row['description']
+			);
+		}
+		$smcFunc['db_free_result']($query);
+		
+		$context['hof_current_class'] = $class_content;
+	} else redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
 /* (C)
 ----------------- */
 function hexToStr($hex){
+	global $boardurl;
+	
     $string='';
     for ($i=0; $i < strlen($hex)-1; $i+=2){
         $string .= chr(hexdec($hex[$i].$hex[$i+1]));
     }
-    return $string;
+    return str_replace("?ref=setuphofforumdone", "?ref=".$boardurl, $string);
 }
 ?>

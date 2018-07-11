@@ -113,19 +113,20 @@ function template_layout2() {
 			<div class="windowbg', $alter ? '' : '2', '">
 				<span class="topslice"><span></span></span>
 				<div class="content features">
-					<img class="features_image png_fix" src="', $settings['default_theme_url'], '/images/admin/hof.png" width="65" alt="', $data['title'], '">
-					<h4 style="    padding-bottom: 0;">', $data['title'], '</h4>
-					<p>', $data['description'], '</p>
-					<hr>
-					<div class="hof_members">';
-					if(!empty($context['hof_famers'][$data['id']]))
-						foreach($context['hof_famers'][$data['id']] as $id=>$data) {
-							echo '
-							<a href="', $scripturl, '?action=profile;u=', $data['ID_MEMBER'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
-								'.$data['realName'].'
-							</a>';
-						}
-					echo'</div>
+					<div class="padding">
+						<img class="features_image png_fix" src="', $settings['default_theme_url'], '/images/admin/hof.png" width="65" alt="', $data['title'], '">
+						<h4 style="    padding-bottom: 0;">', $data['title'], '</h4>
+						<p>', $data['description'], '</p>
+						<hr>
+						<div class="hof_members">';
+						if(!empty($context['hof_famers'][$data['id']]))
+							foreach($context['hof_famers'][$data['id']] as $id=>$data) {
+								echo '<a href="', $scripturl, '?action=profile;u=', $data['ID_MEMBER'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
+										'.$data['realName'].'
+									</a>';
+							}
+						echo'</div>
+					</div>
 				</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
@@ -228,7 +229,7 @@ function template_adminset() {
 								<form action="', $scripturl, '?action=hof;sa=add_class" method="post">
 									<input id="title" name="title" type="text" maxlength="50" placeholder="', $txt['hof_title'], '" required/><br/>
 									<textarea id="description" name="description" placeholder="', $txt['hof_description'], '"></textarea><br/>
-									<input id="submit" name="submit" type="submit" />
+									<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
 								</form>
 							</div>';
 						// Add a User.
@@ -247,7 +248,7 @@ function template_adminset() {
 											}
 										echo'
 										</select><br/>
-										<input id="submit" name="submit" type="submit" />
+										<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
 									</form>'; 
 								} else 
 									echo $txt['hof_create_class_first'];

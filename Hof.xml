@@ -4,6 +4,7 @@
 <id>SychO</id>
 <version>1.0</version>
 
+<!--
 <file name="$boarddir/index.php">
 	<operation>
 		<search position="before"><![CDATA[
@@ -11,7 +12,6 @@
 		<add><![CDATA[		'hof' => array('Hof.php', 'Hof'),]]></add>
 	</operation>
 </file>
-
 <file name="$sourcedir/Admin.php">
 	<operation>
 		<search position="after"><![CDATA[				'current_theme' => array(
@@ -33,7 +33,7 @@
 		<add><![CDATA[			
 		// [HOF] button
 			'hof' => array(
-				'title' => $txt['hof'],
+				'title' => !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof'],
 				'href' => $scripturl . '?action=hof',
 				'show' => allowedTo('view_mlist') && $modSettings['hof_active'],
 				'icon' => '',
@@ -41,6 +41,7 @@
 ]]></add>
 	</operation>
 </file>
+-->
 <file name="$sourcedir/Who.php">
 		<operation>
 			<search position="before"><![CDATA[
@@ -70,13 +71,20 @@ $txt['hof'] = "Hall Of Fame";
 </file>
 <file name="$languagedir/Who.english.php">
 	<operation error="ignore">
+		<search position="replace"><![CDATA[global ]]></search>
+		<add><![CDATA[global $modSettings, ]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Who.english.php">
+	<operation error="ignore">
 		<search position="end"></search>
 		<add><![CDATA[
 // Hall Of Fame
-$txt['whoall_hof'] = 'Viewing the <a href="' . $scripturl . '?action=hof">Hall Of Fame</a> Page';	
+$txt['whoall_hof'] = 'Viewing the <a href="' . $scripturl . '?action=hof">'.$modSettings['hof_globalTitle'].'</a> Page';	
 ]]></add>
 	</operation>
 </file>
+
 
 
 <!-- Spanish -->

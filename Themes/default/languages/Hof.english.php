@@ -36,6 +36,9 @@ $txt['hof_modify'] = "Modify";
 $txt['hof_act_deact'] = "Activate/Deactivate Page:";
 $txt['hof_activate'] = "Activate";
 $txt['hof_deactivate'] = "Deactivate";
-
+$txt['member_since'] = "Member Since";
+$txt['hof_globalTitle'] = "Global Title";
+$txt['hof_change_globalTitle'] = "Change Global Title";
+$txt['hof_ewidth'] = "Element Width (Affecting Avatar Size)";
 
 ?>

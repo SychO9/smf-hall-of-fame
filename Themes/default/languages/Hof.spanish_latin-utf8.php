@@ -38,4 +38,9 @@ $txt['hof_modify'] = "Modificar";
 $txt['hof_act_deact'] = "Activar/Desactivar página:";
 $txt['hof_activate'] = "Activar";
 $txt['hof_deactivate'] = "Desactivar";
+$txt['member_since'] = "Miembro desde";
+$txt['hof_globalTitle'] = "Título de la página";
+$txt['hof_change_globalTitle'] = "Cambiar el título de la página";
+$txt['hof_ewidth'] = "Ancho del elemento (que afecta el tamaño del avatar)";
+
 ?>

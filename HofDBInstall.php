@@ -23,6 +23,7 @@ elseif (!defined('SMF'))
 	// Install Settings.
 	updateSettings(array('hof_layout' => 2));
 	updateSettings(array('hof_active' => 1));
+	updateSettings(array('hof_globalTitle' => 'Hall Of Fame'));
 	
 	// Create 'hof' Table which contains all members added to any classes.
 	$db_columns = array(

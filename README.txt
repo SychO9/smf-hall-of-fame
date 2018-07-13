@@ -18,9 +18,21 @@ A Hall Of Fame Page Where You can Add Notable Members.
 
 [b]Spanish Translation By:[/b] Rock Lee
 
+[b]Version 1.1[/b]
+----------------------------------
++Added Table Layout (Third Layout)
++Added Option to change "Hall Of Fame" Title
++Added option to change Avatar Size(member element size)(Grid Layout)
+!Switched to Integration hooks
+!Page Responsive(As long as the theme used is responsive)
+!Improved Admin interface
+!Grouped all CSS codes in one file
+----------------------------------
+
 Version 1.0
--------------
-Creation Of The Mod
+----------------------------------
+!Mod Creation
+----------------------------------
 
 [b]## IMAGES & ICONS[/b]
 All images and icons Were Created by Paomedia, and are free for use under the Creative Commons (Attribution 3.0 Unported) License 

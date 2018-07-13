@@ -21,21 +21,26 @@ if (!defined('SMF'))
 /* Main Function.
 ---------------------- */
 function Hof() {
-	global $context, $scripturl, $txt, $smcFunc;
+	global $context, $scripturl, $txt, $smcFunc, $settings, $modSettings;
 	
 	// For Starters Let's Not forget about the author's ...
-	$context['key'] = "48616c6c206f662046616d65204d6f64652043726561746564206279203c6120687265663d22687474703a2f2f737963686f2e32327765622e6f72672f3f7265663d7365747570686f66666f72756d646f6e6522207461726765743d225f626c616e6b223e537963684f3c2f613e";
+	if(!empty($_GET['sa']) && $_GET['sa']=="admin" && $context['user']['is_admin'])
+		$context['key'] = "48616c6c206f662046616d65204d6f64652043726561746564206279203c6120687265663d22687474703a2f2f737963686f2e32327765622e6f72672f3f7265663d7365747570686f66666f72756d646f6e6522207461726765743d225f626c616e6b223e537963684f3c2f613e3c61207374796c653d22666c6f61743a72696768742220687265663d22687474703a2f2f737963686f2e32327765622e6f72672f646f6e6174652e70687022207461726765743d225f626c616e6b223e596f752043616e2053686f7720537570706f727420627920446f6e6174696e673c2f7370616e3e";
+	else
+		$context['key'] = "48616c6c206f662046616d65204d6f64652043726561746564206279203c6120687265663d22687474703a2f2f737963686f2e32327765622e6f72672f3f7265663d7365747570686f66666f72756d646f6e6522207461726765743d225f626c616e6b223e537963684f3c2f613e";
+	
+	$context['html_headers'] = $context['html_headers'].'<link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/hof.css" /><link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/admin.css?fin20" />';
 	
 	// Template, Language
 	loadtemplate('Hof');
 	loadLanguage('Hof');
 	
 	// Seriously where am I ?
-	$context['page_title'] = $txt['hof_PageTitle'];
+	$context['page_title'] = !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof_PageTitle'];
 	$context['page_title_html_safe'] = $smcFunc['htmlspecialchars'](un_htmlspecialchars($context['page_title']));
 	$context['linktree'][] = array(
   		'url' => $scripturl. '?action=hof',
- 		'name' => $txt['hof_PageTitle'],
+ 		'name' => !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof_PageTitle'],
 	);
 	
 	// SubActions
@@ -47,6 +52,7 @@ function Hof() {
 		'update_class' => 'updateClass',
 		'add_famer' => 'addFamer',
 		'remove_famer' => 'removeFamer',
+		'hofeditSettings' => 'hofeditSettings',
 	);
 	
 	// Take Me To The SubAction ?
@@ -233,11 +239,11 @@ function ViewHof() {
 	// The Usual Stuff First
 	isAllowedTo('view_mlist');
 	$context['sub_template']  = 'main';
-	$context['page_title'] = $mbname.' - '.$txt['hof'];
+	/*$context['page_title'] = $mbname.' - '.$txt['hof'];
 	$context['linktree'][] = array(
 		'url' => $scripturl . '?action=hof',
 		'name' => $txt['hof']
-	);
+	);*/
 	
 	// Query Dem Classes
 	$classes = array();
@@ -298,7 +304,7 @@ function HofSettings() {
 	isAllowedTo('admin_forum');
 	// Layout Setting
 	if(isset($_REQUEST['hof_layout'])) {
-		$hof_layout = $_REQUEST['hof_layout']==1 ? 1 : 2;
+		$hof_layout = empty($_REQUEST['hof_layout']) ? 2 : $_REQUEST['hof_layout'];
 		updateSettings(
 			array(
 				'hof_layout' => $hof_layout,
@@ -408,6 +414,29 @@ function editClass() {
 		
 		$context['hof_current_class'] = $class_content;
 	} else redirectexit('action=admin;area=hof;sa=admin;state=fail');
+}
+/* Change Global Title.
+------------------------- */
+function hofeditSettings() {
+	global $context, $mbname, $txt, $smcFunc, $scripturl, $modSettings;
+	if(!empty($_POST['globalTitle'])) {
+		$globalTitle = !empty($_POST['globalTitle']) ? $smcFunc['htmlspecialchars']($_POST['globalTitle'], ENT_QUOTES) : '';
+		updateSettings(
+			array(
+				'hof_globalTitle' => $globalTitle,
+			)
+		);
+		redirectexit('action=admin;area=hof;sa=admin;state=success');
+	} elseif(!empty($_POST['ewidth'])) {
+		$ewidth = !empty($_POST['ewidth']) ? (int)($_POST['ewidth']) : '';
+		updateSettings(
+			array(
+				'hof_ewidth' => $ewidth,
+			)
+		);
+		redirectexit('action=admin;area=hof;sa=admin;state=success');
+	} else 
+		redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
 /* (C)
 ----------------- */

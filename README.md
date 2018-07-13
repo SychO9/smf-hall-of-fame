@@ -21,9 +21,9 @@ Compatible With: SMF 2.0.x
 
 A Hall Of Fame Page Where You can Add Notable Members.
 
-#### Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)
+##### Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)
 
-#### Version 1.1
+##### Version 1.1
 
 ----------------------------------
 +Added Table Layout (Third Layout)
@@ -33,13 +33,11 @@ A Hall Of Fame Page Where You can Add Notable Members.
 !Page Responsive(As long as the theme used is responsive)
 !Improved Admin interface
 !Grouped all CSS codes in one file
-----------------------------------
 
-#### Version 1.0
+##### Version 1.0
 
 ----------------------------------
 !Mod Creation
-----------------------------------
 
 ## IMAGES & ICONS
 All images and icons Were Created by Paomedia, and are free for use under the Creative Commons (Attribution 3.0 Unported) License 

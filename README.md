@@ -1,9 +1,13 @@
 # SMF Hall Of Fame Mod
+
 SMF Mod to Showcase Notable Members
 
 ## INTRODUCTION
+
 SMF Hall Of Fame
+
 By: SychO (M.S)
+
 Portfolio: http://sycho.22web.org
 
 ## Copyright 2018
@@ -17,9 +21,10 @@ Compatible With: SMF 2.0.x
 
 A Hall Of Fame Page Where You can Add Notable Members.
 
-#### Spanish Translation By: (Rock Lee)[https://github.com/RockLee-BC]
+#### Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)
 
 #### Version 1.1
+
 ----------------------------------
 +Added Table Layout (Third Layout)
 +Added Option to change "Hall Of Fame" Title
@@ -31,6 +36,7 @@ A Hall Of Fame Page Where You can Add Notable Members.
 ----------------------------------
 
 #### Version 1.0
+
 ----------------------------------
 !Mod Creation
 ----------------------------------

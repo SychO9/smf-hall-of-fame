@@ -25,23 +25,23 @@ A Hall Of Fame Page Where You can Add Notable Members.
 
 ##### Version 1.1
 
-+Added Table Layout (Third Layout)
+>+Added Table Layout (Third Layout)
 
-+Added Option to change "Hall Of Fame" Title
+>+Added Option to change "Hall Of Fame" Title
 
-+Added option to change Avatar Size(member element size)(Grid Layout)
+>+Added option to change Avatar Size(member element size)(Grid Layout)
 
-!Switched to Integration hooks
+>!Switched to Integration hooks
 
-!Page Responsive(As long as the theme used is responsive)
+>!Page Responsive(As long as the theme used is responsive)
 
-!Improved Admin interface
+>!Improved Admin interface
 
-!Grouped all CSS codes in one file
+>!Grouped all CSS codes in one file
 
 ##### Version 1.0
 
-!Mod Creation
+>!Mod Creation
 
 ## IMAGES & ICONS
 All images and icons Were Created by Paomedia, and are free for use under the Creative Commons (Attribution 3.0 Unported) License 

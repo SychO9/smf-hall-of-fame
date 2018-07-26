@@ -59,6 +59,7 @@ elseif (!defined('SMF'))
 					'size' => 8,
 					'null' => false,
 					'unsigned' => true,
+					'default' => null,
 					'auto' => true
 			),
 			array(

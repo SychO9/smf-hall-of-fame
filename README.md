@@ -22,6 +22,7 @@ Compatible With: SMF 2.0.x
 A Hall Of Fame Page Where You can Add Notable Members.
 
 ##### Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)
+##### Russian Translation By: [digger](https://github.com/realdigger)
 
 ##### Version 1.1
 ```

@@ -22,6 +22,8 @@
 		<modification type="file" reverse="true">Hof.xml</modification>
 		<remove-file name="Themes/default/Hof.template.php" />
 		<remove-file name="Themes/default/languages/Hof.english.php" />
+		<remove-file name="Themes/default/languages/Hof.russian.php" />
+		<remove-file name="Themes/default/languages/Hof.russian-utf8.php" />
 		<remove-file name="Themes/default/images/admin/hof.png" />
 		<remove-file name="Themes/default/images/admin/hof_remove.png" />
 		<remove-file name="Themes/default/images/admin/hof_user.png" />

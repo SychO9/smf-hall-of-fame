@@ -5,19 +5,18 @@
 	<id>SychO:Hof</id>
 	<name>Hall Of Fame</name>
 	<type>modification</type>
-	<version>1.1</version>	
-	
+	<version>1.2</version>	
+
 	<install for="2.0 - 2.0.99">
-		<redirect url="?action=admin;area=hof;sa=admin">redirect.txt</redirect>
+		<redirect url="?action=admin;area=hof;sa=admin" type="inline">SMF Hall Of Fame has been installed successfully! You will now be taken to the settings page.</redirect>
 		<readme parsebbc="true">README.txt</readme>
-		<modification type="file">Hof.xml</modification>
 		<require-file name="Hof.php" destination="$sourcedir" />
 		<require-file name="Subs-Hof.php" destination="$sourcedir" />
 		<require-dir name="Themes" destination="$boarddir" />
-		<database type="file">HofDBInstall.php</database>
+		<database type="file">install.php</database>
 		<code>hooks.php</code>
 	</install>
-	
+
 	<uninstall for="2.0 - 2.0.99">
 		<modification type="file" reverse="true">Hof.xml</modification>
 		<remove-file name="Themes/default/Hof.template.php" />
@@ -32,7 +31,6 @@
 		<remove-file name="Themes/default/images/admin/hof_table.png" />
 		<remove-file name="Sources/Hof.php" />
 		<remove-file name="Sources/Subs-Hof.php" />
-		<database type="file">HofDBUninstall.php</database>
 		<code>hooks.php</code>
 	</uninstall>
 

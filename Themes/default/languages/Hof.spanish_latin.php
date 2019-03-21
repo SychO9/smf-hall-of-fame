@@ -1,19 +1,18 @@
 <?php
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
-/* Spanish translation by Rock Lee 
-/* https://www.bombercode.org Copyright 2014-2018
----------------------------- */
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Spanish translation by Rock Lee 
+ * https://www.bombercode.org Copyright 2014-2018
+ */
 
 $txt['hof_admin'] = "Sal&oacute;n de la Fama administraci&oacute;n";
 $txt['hof_PageTitle'] = "Sal&oacute;n de la Fama";
@@ -42,5 +41,7 @@ $txt['member_since'] = "Miembro desde";
 $txt['hof_globalTitle'] = "T&iacute;tulo de la p&aacute;gina";
 $txt['hof_change_globalTitle'] = "Cambiar el t&iacute;tulo de la p&aacute;gina";
 $txt['hof_ewidth'] = "Ancho del elemento (que afecta el tama&ntilde;o del avatar)";
-
+// Who's online list
+global $modSettings;
+$txt['whoall_hof'] = 'Viendo el <a href="' . $scripturl . '?action=hof">'.$modSettings['hof_globalTitle'].'</a> Page';	
 ?>

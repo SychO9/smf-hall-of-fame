@@ -1,19 +1,18 @@
 <?php
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
-/* Spanish translation by Rock Lee 
-/* https://www.bombercode.org Copyright 2014-2018
----------------------------- */
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Spanish translation by Rock Lee 
+ * https://www.bombercode.org Copyright 2014-2018
+ */
 
 $txt['hof_admin'] = "Salón de la Fama administración";
 $txt['hof_PageTitle'] = "Salón de la Fama";
@@ -42,5 +41,7 @@ $txt['member_since'] = "Miembro desde";
 $txt['hof_globalTitle'] = "Título de la página";
 $txt['hof_change_globalTitle'] = "Cambiar el título de la página";
 $txt['hof_ewidth'] = "Ancho del elemento (que afecta el tamaño del avatar)";
-
+// Who's Online list
+global $modSettings;
+$txt['whoall_hof'] = 'Viendo el <a href="' . $scripturl . '?action=hof">'.$modSettings['hof_globalTitle'].'</a> Page';	
 ?>

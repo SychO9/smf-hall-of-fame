@@ -1,83 +1,80 @@
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
----------------------------- */
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
 .hof_cheader h1 {font-size: 16px;padding: 10px 0 5px 0;}
 .hof_member {display: inline-block;margin: 8px;padding: 0;background: #acacac;width: 170px;vertical-align: top;}
 .hof_class {text-align: center;}
 .hof_mImage {background: #bcbcbc;}
 .hof_who {padding: 10px 0;color: black;}
-
 .hof_who a {
-    color: black;
+	color: black;
 }
 .hof_who div {font-size: 11px;}
 .hof_member:hover .hof_mImage img {opacity: 1;}
 .hof_mImage img {width: 100%;height: 100%;opacity: 0.8;vertical-align: text-bottom;border-radius: 0;-webkit-border-radius: 0;-moz-border-radius: 0;-ms-border-radius: 0;-o-border-radius: 0;}
 .hof_table img.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    vertical-align: middle;
-    margin: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-o-border-radius: 4px;
+	vertical-align: middle;
+	margin: 0;
 }
 
 table.hof_table td {
-    padding: 2px 8px;
+	padding: 2px 8px;
 }
 
 table.hof_table th {
-    padding: 0;
+	padding: 0;
 }
 .hof_table tr.catbg th smalltext {
-    display: block;
-    font-size: 11px;
+	display: block;
+	font-size: 11px;
 }
 .hof_table tr.catbg th {
-    line-height: 18px;
-    padding: 8px 8px;
+	line-height: 18px;
+	padding: 8px 8px;
 }
 .hof_table thead tr.catbg {}
 .hof_admin input, .hof_admin textarea, .hof_admin select {
-    padding: 10px 12px;
-    margin: 1px 0;
-    width: 100%;
+	padding: 10px 12px;
+	margin: 1px 0;
+	width: 100%;
 	max-width: 100%;
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 .hof_layout a {
-    background: rgba(255, 255, 255, 0.46);
-    display: inline-block;
-    padding: 8px;
-    border: 1px solid #a8a8a8;
+	background: rgba(255, 255, 255, 0.46);
+	display: inline-block;
+	padding: 8px;
+	border: 1px solid #a8a8a8;
 }
 .hof_layout a:hover {
-    background: rgba(255, 255, 255, 0.93);
-    border-color: black;
+	background: rgba(255, 255, 255, 0.93);
+	border-color: black;
 }
 .hof_layout a.active {
-    background: #65ff65;
+	background: #65ff65;
 	border-color: black;
 }
 .hof_admin .hof_inline input {
-    width: auto;
-    margin: 1px 1px;
+	width: auto;
+	margin: 1px 1px;
 }
 .hof_admin input[type="submit"] {
-    cursor: pointer;
+	cursor: pointer;
 }
 .hof_table .nam {
 	vertical-align: middle;
@@ -87,22 +84,16 @@ table.hof_table th {
 .hof_show {
 	display: none;
 }
-.hof_table .cat_bar, .hof_table .catbg {
-    
-}
 .hof_table .catbg smalltext {
-    display: block;
-    font-size: 12px;
-    margin-top: -11px;
-}
-.hof_table .catbg {
-    
+	display: block;
+	font-size: 12px;
+	margin-top: -11px;
 }
 table.hof_table .hof_description td {
-    padding: 8px 8px;
+	padding: 8px 8px;
 }
 table.hof_table td {
-    border-right: 0;
+	border-right: 0;
 }
 @media screen and (max-width: 480px) {
 	.hof_show {

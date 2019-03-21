@@ -1,34 +1,26 @@
 <?php
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
----------------------------- */
-
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
 
 // First of all, we make sure we are accessing the source file via SMF so that people can not directly access the file. 
 if (!defined('SMF'))
 	die('Hack Attempt...');
 
-/* Main Function.
----------------------- */
-function Hof() {
+/**
+ * Main Function.
+ */
+function Hof()
+{
 	global $context, $scripturl, $txt, $smcFunc, $settings, $modSettings;
-	
-	// For Starters Let's Not forget about the author's ...
-	if(!empty($_GET['sa']) && $_GET['sa']=="admin" && $context['user']['is_admin'])
-		$context['key'] = "48616c6c206f662046616d65204d6f64652043726561746564206279203c6120687265663d22687474703a2f2f737963686f2e32327765622e6f72672f3f7265663d7365747570686f66666f72756d646f6e6522207461726765743d225f626c616e6b223e537963684f3c2f613e3c61207374796c653d22666c6f61743a72696768742220687265663d22687474703a2f2f737963686f2e32327765622e6f72672f646f6e6174652e70687022207461726765743d225f626c616e6b223e596f752043616e2053686f7720537570706f727420627920446f6e6174696e673c2f613e";
-	else
-		$context['key'] = "48616c6c206f662046616d65204d6f64652043726561746564206279203c6120687265663d22687474703a2f2f737963686f2e32327765622e6f72672f3f7265663d7365747570686f66666f72756d646f6e6522207461726765743d225f626c616e6b223e537963684f3c2f613e";
-	
 	$context['html_headers'] = $context['html_headers'].'<link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/hof.css" /><link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/admin.css?fin20" />';
 	
 	// Template, Language
@@ -62,9 +54,11 @@ function Hof() {
 		ViewHof();
 }
 
-/* Add a Class
---------------------- */
-function addClass() {
+/**
+ * Add a Class
+ */
+function addClass()
+{
 	global $context, $settings, $scripturl, $txt, $db_prefix, $options, $user_info;
 	global $modSettings, $smcFunc, $memberContext;
 	
@@ -91,9 +85,12 @@ function addClass() {
 	} else
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
-/* Remove a Class.
----------------------- */
-function removeClass() {
+
+/**
+ * Remove a Class.
+ */
+function removeClass()
+{
 	global $context, $settings, $scripturl, $txt, $db_prefix, $options, $user_info;
 	global $modSettings, $smcFunc, $memberContext;
 	isAllowedTo('admin_forum');
@@ -122,9 +119,12 @@ function removeClass() {
 	} else			
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
-/* Update a Class.
---------------------- */
-function updateClass() {
+
+/**
+ * Update a Class.
+ */
+function updateClass()
+{
 	global $context, $settings, $scripturl, $txt, $db_prefix, $options, $user_info;
 	global $modSettings, $smcFunc, $memberContext;
 	isAllowedTo('admin_forum');
@@ -149,9 +149,12 @@ function updateClass() {
 	} else
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
-/* Add a Member to a Hall Of Fame Class
------------------------------------------- */
-function addFamer() {
+
+/**
+ * Add a Member to a Hall Of Fame Class
+ */
+function addFamer()
+{
 	global $context, $settings, $scripturl, $txt, $db_prefix, $options, $user_info;
 	global $modSettings, $smcFunc, $memberContext;
 	isAllowedTo('admin_forum');
@@ -206,9 +209,12 @@ function addFamer() {
 		else redirectexit('action=admin;area=hof;sa=admin;state=fail');
 	} else redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
-/* Remove a Member from a HOF Class.
----------------------------------------- */
-function removeFamer() {
+
+/**
+ * Remove a Member from a HOF Class.
+ */
+function removeFamer()
+{
 	global $context, $settings, $scripturl, $txt, $db_prefix, $options, $user_info;
 	global $modSettings, $smcFunc, $memberContext;
 	isAllowedTo('admin_forum');
@@ -231,19 +237,16 @@ function removeFamer() {
 	} else			
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
-/* Fetch Classes & Famers.
----------------------------- */
-function ViewHof() {
+
+/**
+ * Fetch Classes & Famers.
+ */
+function ViewHof()
+{
 	global $context, $mbname, $txt, $modSettings, $smcFunc, $user_info, $sourcedir, $scripturl;
-		
 	// The Usual Stuff First
 	isAllowedTo('view_mlist');
 	$context['sub_template']  = 'main';
-	/*$context['page_title'] = $mbname.' - '.$txt['hof'];
-	$context['linktree'][] = array(
-		'url' => $scripturl . '?action=hof',
-		'name' => $txt['hof']
-	);*/
 	
 	// Query Dem Classes
 	$classes = array();
@@ -295,9 +298,11 @@ function ViewHof() {
 	$context['hof_famers'] = $famers;
 }
 
-/* Settings Page.
--------------------- */
-function HofSettings() {
+/**
+ * Settings Page.
+ */
+function HofSettings()
+{
 	global $context, $mbname, $txt, $smcFunc;
 	
 	// Again
@@ -340,8 +345,8 @@ function HofSettings() {
 	$context['hof_classes'] = $classes;
 		
 	$famers = array();
-	foreach ($classes as $id => $data) {
-		
+	foreach ($classes as $id => $data)
+	{
 		$query2 = $smcFunc['db_query']('', "
 			SELECT 
 				m.ID_GROUP, m.avatar, m.ID_MEMBER, m.real_name, m.email_address, m.hide_email, m.posts, m.last_login, m.date_registered, h.id_member, h.date_added, h.id_class
@@ -375,23 +380,26 @@ function HofSettings() {
 	$context['hof_famers'] = $famers;
 	
 }
-/* Edit a Class Page.
-------------------------- */
-function editClass() {
+
+/**
+ * Edit a Class Page.
+ */
+function editClass()
+{
 	global $context, $mbname, $txt, $smcFunc, $scripturl;
 	
 	// Let's Make Sure we know where we are ye ?
 	$context['page_title'] = $txt['hof_edit_class'];
 	$context['page_title_html_safe'] = $smcFunc['htmlspecialchars'](un_htmlspecialchars($context['page_title']));
 	$context['linktree'][] = array(
-  		'url' => $scripturl. '?action=hof;sa=edit_class',
- 		'name' => $txt['hof_edit_class'],
+		'url' => $scripturl. '?action=hof;sa=edit_class',
+		'name' => $txt['hof_edit_class'],
 	);
-	
+
 	isAllowedTo('admin_forum');
-	
+
 	$CLASS = (isset($_REQUEST['class']) && !empty($_REQUEST['class'])) ? (int)$_REQUEST['class'] : 0;
-	
+
 	$context['sub_template']  = 'editClass';
 	if($CLASS!=0) {
 		$class_content = array();
@@ -415,9 +423,12 @@ function editClass() {
 		$context['hof_current_class'] = $class_content;
 	} else redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
-/* Change Global Title.
-------------------------- */
-function hofeditSettings() {
+
+/**
+ * Change Global Title.
+ */
+function hofeditSettings()
+{
 	global $context, $mbname, $txt, $smcFunc, $scripturl, $modSettings;
 	if(!empty($_POST['globalTitle'])) {
 		$globalTitle = !empty($_POST['globalTitle']) ? $smcFunc['htmlspecialchars']($_POST['globalTitle'], ENT_QUOTES) : '';
@@ -438,15 +449,3 @@ function hofeditSettings() {
 	} else 
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }
-/* (C)
------------------ */
-function hexToStr($hex){
-	global $boardurl;
-	
-    $string='';
-    for ($i=0; $i < strlen($hex)-1; $i+=2){
-        $string .= chr(hexdec($hex[$i].$hex[$i+1]));
-    }
-    return str_replace("?ref=setuphofforumdone", "?ref=".$boardurl, $string);
-}
-?>

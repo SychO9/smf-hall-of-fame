@@ -1,42 +1,30 @@
-[b]## INTRODUCTION[/b]
-SMF Hall Of Fame
-[b]By:[/b] SychO (M.S)
-[b]Portfolio:[/b] http://sycho.22web.org
-
-[b]## Copyright 2018[/b]
-=======================================================================
-==| Licensed under the Apache License, Version 2.0 (the "License");
-==| you may not use this file except in compliance with the License.
-==| You may obtain a copy of the License at
-==|          http://www.apache.org/licenses/LICENSE-2.0
-=======================================================================
-
-[b]## MOD INFORMATION[/b]
+[img]https://img.shields.io/github/release/SychO9/smf-fa-board-icons.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green[/img]
+[b][size=x-large]SMF Hall Of Fame Mod[/size][/b]
 Compatible With: SMF 2.0.x
-
 A Hall Of Fame Page Where You can Add Notable Members.
+[url=https://github.com/SychO9/SMF-Hall-Of-Fame]Github Repository[/url]
 
-[b]Spanish Translation By:[/b] Rock Lee
-[b]Russian Translation By:[/b] digger
+[b][size=16px]Changelog[/size][/b]
+[list][li]Version 1.2[list]
+ [li]\+ Replace file modifications with more hooks[/li]
+ [li]! Code cleanup[/li][/list][/li]
+[li]Version 1.1[list]
+ [li]\+ Added Table Layout (Third Layout)[/li]
+ [li]\+ Added Option to change "Hall Of Fame" Title[/li]
+ [li]\+ Added option to change Avatar Size(member element size)(Grid Layout)[/li]
+ [li]! Switched to Integration hooks[/li]
+ [li]! Page Responsive(As long as the theme used is responsive)[/li]
+ [li]! Improved Admin interface[/li]
+ [li]! Grouped all CSS codes in one file[/li][/list][/li]
+[li]Version 1.0[list]
+ [li]! Mod Creation[/li][/list][/li]
+[/list]
+[b][size=16px]Translation[/size][/b]
+* Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)
+* Russian Translation By: [digger](https://github.com/realdigger)
 
-[b]Version 1.1[/b]
-----------------------------------
-+Added Table Layout (Third Layout)
-+Added Option to change "Hall Of Fame" Title
-+Added option to change Avatar Size(member element size)(Grid Layout)
-!Switched to Integration hooks
-!Page Responsive(As long as the theme used is responsive)
-!Improved Admin interface
-!Grouped all CSS codes in one file
-----------------------------------
+[b][size=16px]License[/size][/b]
+SMF Hall Of Fame Mod is licensed under the Apache License, Version 2.0. A full copy of this license is included in the package file.
 
-Version 1.0
-----------------------------------
-!Mod Creation
-----------------------------------
-
-[b]## IMAGES & ICONS[/b]
+[b][size=16px]Copyrights[/size][/b]
 All images and icons Were Created by Paomedia, and are free for use under the Creative Commons (Attribution 3.0 Unported) License 
-
-[b]## END[/b]
-To Be Updated.

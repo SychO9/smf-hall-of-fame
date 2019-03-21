@@ -1,26 +1,26 @@
 <?php
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
----------------------------- */
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
 
-/* Main Page Template.
------------------------ */
-function template_main() {
+/**
+ * Main Page, the layout type is determined here.
+ */
+function template_main()
+{
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $memberContext;
-	
+
 	if(!$modSettings['hof_active'] && !allowedTo('admin_forum'))
 		redirectexit('action=forum');
-	
+
 	if((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 1) || empty($modSettings['hof_layout']))
 		template_layout1();
 	elseif((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 3) || empty($modSettings['hof_layout']))
@@ -28,9 +28,12 @@ function template_main() {
 	else
 		template_layout2();
 }
-/* Our First Layout.
------------------------- */
-function template_layout2() {
+
+/**
+ * The unusual layout
+ */
+function template_layout2()
+{
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $memberContext, $sc;
 	
 	$permit = allowedTo('admin_forum');
@@ -82,16 +85,14 @@ function template_layout2() {
 			<span class="botslice clear_right"><span></span></span>
 		</div>';
 	}
-	
-	// Do Not Touch
-	echo'<hr><div class="titlebg" style="padding: 6px 12px;border-radius: 4px;font-size: 11px;">', hexToStr($context['key']), '', $permit ? '<span style="float:right"><a href="'.$scripturl.'?action=admin;area=hof;sa=admin;sesc='.$sc.'">Admin Page</a></span>' : '', '</div>';
-
 }
-/* Our Second Layout.
------------------------- */
-function template_layout1() {
+
+/**
+ * The boxy layout
+ */
+function template_layout1()
+{
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc;
-	
 	$permit = allowedTo('admin_forum');
 	
 	$alter = true;
@@ -131,21 +132,20 @@ function template_layout1() {
 				<div class="content">'.$txt['hof_empty_classes'].'</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
-		// Do Not Touch
-		echo'<hr><div class="titlebg" style="padding: 6px 12px;border-radius: 4px;font-size: 11px;">', hexToStr($context['key']), '', $permit ? '<span style="float:right"><a href="'.$scripturl.'?action=admin;area=hof;sa=admin;sesc='.$sc.'">Admin Page</a></span>' : '', '</div>';
-
 	}
 }
-/* Our Third Layout.
------------------------- */
-function template_layout3() {
+
+/**
+ * The table layout
+ */
+function template_layout3()
+{
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc, $memberContext;
-	
 	$permit = allowedTo('admin_forum');
 	
-	
 	if(!empty($context['hof_classes'])) {
-		foreach($context['hof_classes'] as $id => $data) {
+		foreach($context['hof_classes'] as $id => $data)
+		{
 			// Show Classes.
 			echo '
 			<table width="100%" cellspacing="0" class="hof_table table_grid">
@@ -187,26 +187,23 @@ function template_layout3() {
 			</table>';
 			
 		}
-		
-		// Do Not Touch
-		echo'<hr><div class="titlebg" style="padding: 6px 12px;border-radius: 4px;font-size: 11px;">', hexToStr($context['key']), '', $permit ? '<span style="float:right"><a href="'.$scripturl.'?action=admin;area=hof;sa=admin;sesc='.$sc.'">Admin Page</a></span>' : '', '</div>';
-
-	} else {
+	}
+	else
+	{
 		echo'<div class="windowbg">
 				<span class="topslice"><span></span></span>
 				<div class="content">'.$txt['hof_empty_classes'].'</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
-		// Do Not Touch
-		echo'<hr><div class="titlebg" style="padding: 6px 12px;border-radius: 4px;font-size: 11px;">', hexToStr($context['key']), '', $permit ? '<span style="float:right"><a href="'.$scripturl.'?action=admin;area=hof;sa=admin;sesc='.$sc.'">Admin Page</a></span>' : '', '</div>';
-
 	}
 }
-/* Admin Page.
------------------------- */
-function template_adminset() {
+
+/**
+ * Admin Page
+ */
+function template_adminset()
+{
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $smcFunc;
-	
 	$STATE = !empty($_REQUEST['state']) ? $_REQUEST['state'] : null;
 	$MESSAGE = !empty($_REQUEST['message']) ? $smcFunc['htmlspecialchars']($_REQUEST['message']) : null;
 	if(!empty($STATE)) {
@@ -234,8 +231,9 @@ function template_adminset() {
 			</h3>
 		</div>';
 			$alter = true;
-			if(!empty($context['hof_classes'])) {
-				foreach($context['hof_classes'] as $id => $data) {
+			if(!empty($context['hof_classes']))
+				foreach($context['hof_classes'] as $id => $data)
+				{
 					// Show Classes.
 					echo '
 					<div class="windowbg', $alter ? '' : '2', '">
@@ -264,12 +262,13 @@ function template_adminset() {
 					</div>';
 					$alter = !$alter;
 				}
-			} else {
+			else
+			{
 				echo'<div class="windowbg">
 						<span class="topslice"><span></span></span>
-						<div class="content">';
-				echo $txt['hof_empty_classes'];
-				echo'</div>
+						<div class="content">
+							', $txt['hof_empty_classes'], '
+						</div>
 						<span class="botslice clear_right"><span></span></span>
 					</div>';
 			}
@@ -364,13 +363,11 @@ function template_adminset() {
 					</div>
 				</fieldset>';
 				
-				echo'</div>
+				echo'
+				</div>
 				<span class="botslice"><span></span></span>
-			</div>';
-			// Do Not Touch
-			echo'<div class="titlebg" style="padding: 6px 12px;border-radius: 4px;font-size: 11px;">', hexToStr($context['key']), '</div>';
-			
-			echo'</div>';
+			</div>
+		</div>';
 			
 			// JS !!!
 			echo'
@@ -392,11 +389,13 @@ function template_adminset() {
 				});
 			// ]]></script>';
 }
-/* Editing a Class.
------------------------- */
-function template_editClass() {
+
+/**
+ * Editing a Class.
+ */
+function template_editClass()
+{
 	global $context, $settings, $options, $txt, $scripturl, $modSettings;
-	
 	echo'<div class="cat_bar">
 			<h3 class="catbg">
 				', $context['hof_current_class']['title'], '
@@ -415,4 +414,3 @@ function template_editClass() {
 		<span class="botslice"><span></span></span>
 	</div>';
 }
-?>

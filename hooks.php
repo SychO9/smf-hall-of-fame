@@ -18,6 +18,7 @@ $hook_functions = array(
 	'integrate_admin_areas' => 'hof_admin_hook',
 	'integrate_actions' => 'hof_action_hook',
 	'integrate_menu_buttons' => 'hof_menu_hook',
+	'integrate_credits' => 'hof_credits',
 );
 
 // Adding or removing them?
@@ -28,6 +29,3 @@ else
 
 foreach ($hook_functions as $hook => $function)
 	$call($hook, $function);
-
-	
-?>

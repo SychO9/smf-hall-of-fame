@@ -1,46 +1,47 @@
 <?php
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
-/* Russian translation by digger
-/* https://mysmf.net (c) 2018
----------------------------- */
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Russian translation by digger
+ * https://mysmf.net (c) 2018
+ */
 
-$txt['hof_admin']              = "Íàñòðîéêè çàëà ñëàâû";
-$txt['hof_PageTitle']          = "Çàë ñëàâû";
-$txt['hof']                    = "Çàë ñëàâû";
-$txt['hof_famer']              = "Ïîëüçîâàòåëü";
-$txt['hof_title']              = "Íàçâàíèå";
-$txt['hof_description']        = "Êîðîòêîå îïèñàíèå.";
-$txt['hof_submit']             = "Ñîõðàíèòü";
-$txt['hof_add_famer']          = "Äîáàâèòü ïîëüçîâàòåëÿ:";
-$txt['hof_add_class']          = "Äîáàâèòü ðàçäåë:";
-$txt['hof_edit_class']         = "Ðåäàêòèðîâàòü ðàçäåë";
-$txt['hof_empty']              = "Ïîêàçûâàòü íå÷åãî";
-$txt['hof_empty_classes']      = "Íåò ðàçäåëîâ.";
-$txt['hof_classes']            = "Ðàçäåëû";
-$txt['hof_layout']             = "Èçìåíèòü âèä ñòðàíèöû:";
-$txt['hof_delete_class']       = "Óäàëèòü ðàçäåë";
-$txt['hof_delete_famer']       = "Óáðàòü ïîëüçîâàòåëÿ èç ýòîãî ðàçäåëà";
-$txt['hof_error_unknown']      = "×òî-òî ïîøëî íå òàê!";
-$txt['hof_success']            = "Óñïåøíî âûïîëíåíî";
-$txt['hof_create_class_first'] = "Ñíà÷àëà äîáàâüòå ðàçäåëû.";
-$txt['hof_modify']             = "Ðåäàêòèðîâàòü";
-$txt['hof_act_deact']          = "Âêëþ÷èòü/Âûêëþ÷èòü ñòðàíèöó:";
-$txt['hof_activate']           = "Âêëþ÷èòü";
-$txt['hof_deactivate']         = "Âûêëþ÷èòü";
-$txt['member_since']           = "Çàðåãèñòðèðîâàí";
-$txt['hof_globalTitle']        = "Íàçâàíèå ñòðàíèöû";
-$txt['hof_change_globalTitle'] = "Èçìåíèòü íàçâàíèå ñòðàíèöû";
-$txt['hof_ewidth']             = "Øèðèíà êîëîíîê (Çàâèñèò îò ðàçìåðà àâàòàðîâ)";
-
+$txt['hof_admin']              = "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ Ð·Ð°Ð»Ð° ÑÐ»Ð°Ð²Ñ‹";
+$txt['hof_PageTitle']          = "Ð—Ð°Ð» ÑÐ»Ð°Ð²Ñ‹";
+$txt['hof']                    = "Ð—Ð°Ð» ÑÐ»Ð°Ð²Ñ‹";
+$txt['hof_famer']              = "ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ";
+$txt['hof_title']              = "ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ";
+$txt['hof_description']        = "ÐšÐ¾Ñ€Ð¾Ñ‚ÐºÐ¾Ðµ Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ.";
+$txt['hof_submit']             = "Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ";
+$txt['hof_add_famer']          = "Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ:";
+$txt['hof_add_class']          = "Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ð´ÐµÐ»:";
+$txt['hof_edit_class']         = "Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ñ€Ð°Ð·Ð´ÐµÐ»";
+$txt['hof_empty']              = "ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ð½ÐµÑ‡ÐµÐ³Ð¾";
+$txt['hof_empty_classes']      = "ÐÐµÑ‚ Ñ€Ð°Ð·Ð´ÐµÐ»Ð¾Ð².";
+$txt['hof_classes']            = "Ð Ð°Ð·Ð´ÐµÐ»Ñ‹";
+$txt['hof_layout']             = "Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ð²Ð¸Ð´ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹:";
+$txt['hof_delete_class']       = "Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ð´ÐµÐ»";
+$txt['hof_delete_famer']       = "Ð£Ð±Ñ€Ð°Ñ‚ÑŒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð¸Ð· ÑÑ‚Ð¾Ð³Ð¾ Ñ€Ð°Ð·Ð´ÐµÐ»Ð°";
+$txt['hof_error_unknown']      = "Ð§Ñ‚Ð¾-Ñ‚Ð¾ Ð¿Ð¾ÑˆÐ»Ð¾ Ð½Ðµ Ñ‚Ð°Ðº!";
+$txt['hof_success']            = "Ð£ÑÐ¿ÐµÑˆÐ½Ð¾ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¾";
+$txt['hof_create_class_first'] = "Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð´Ð¾Ð±Ð°Ð²ÑŒÑ‚Ðµ Ñ€Ð°Ð·Ð´ÐµÐ»Ñ‹.";
+$txt['hof_modify']             = "Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ";
+$txt['hof_act_deact']          = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ/Ð’Ñ‹ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ:";
+$txt['hof_activate']           = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ";
+$txt['hof_deactivate']         = "Ð’Ñ‹ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ";
+$txt['member_since']           = "Ð—Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½";
+$txt['hof_globalTitle']        = "ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹";
+$txt['hof_change_globalTitle'] = "Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹";
+$txt['hof_ewidth']             = "Ð¨Ð¸Ñ€Ð¸Ð½Ð° ÐºÐ¾Ð»Ð¾Ð½Ð¾Ðº (Ð—Ð°Ð²Ð¸ÑÐ¸Ñ‚ Ð¾Ñ‚ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° Ð°Ð²Ð°Ñ‚Ð°Ñ€Ð¾Ð²)";
+// Who's online list
+global $modSettings;
+$txt['whoall_hof'] = 'ÐŸÑ€Ð¾ÑÐ¼Ð°Ñ‚Ñ€Ð¸Ð²Ð°ÐµÑ‚ <a href="' . $scripturl . '?action=hof">' . $modSettings['hof_globalTitle'] . '.</a>';
 ?>

@@ -1,33 +1,39 @@
 <?php
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
----------------------------- */
-
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
 
 // First of all, we make sure we are accessing the source file via SMF so that people can not directly access the file. 
 if (!defined('SMF'))
 	die('Hack Attempt...');
 
-// Action Hook
-function hof_action_hook(&$actionArray) {
-	
+/**
+ * Adds ?action=hof to the actions list
+ * Called By
+ *		integrate_actions
+ */
+function hof_action_hook(&$actionArray)
+{
 	global $sourcedir, $modSettings;
-	
+	loadLanguage('Hof');
 	$actionArray += array('hof' => array('Hof.php', 'Hof'));
 }
-// Admin Area Hook
-function hof_admin_hook(&$admin_areas) {
-   
+
+/**
+ * Adds an admin area, ?action=admin;area=hof
+ * Called By
+ *		integrate_admin_areas
+ */
+function hof_admin_hook(&$admin_areas)
+{
 	global $txt, $modSettings, $scripturl, $sc;
 	
     $admin_areas['config']['areas'] += array(
@@ -40,9 +46,14 @@ function hof_admin_hook(&$admin_areas) {
 		),
 	);
 }
-// Menu Button Hook
-function hof_menu_hook(&$menu_buttons) {
-	
+
+/**
+ * Adds a button to the main menu
+ * Called By
+ *		integrate_menu_buttons
+ */
+function hof_menu_hook(&$menu_buttons)
+{
 	global $sourcedir, $modSettings, $scripturl, $txt;
 	
 	$hof = array(
@@ -65,13 +76,15 @@ function hof_menu_hook(&$menu_buttons) {
 			array_slice($menu_buttons, $pos)
 		);
 	}
-	
-	/*$menu_buttons['hof'] = array(
-		'title' => !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof'],
-		'href' => $scripturl . '?action=hof',
-		'show' => allowedTo('view_mlist') && $modSettings['hof_active'],
-		'icon' => '',
-	);*/
 }
 
-?>
+/**
+ * Credits the author
+ * Called By
+ *		integrate_credits
+ */
+function hof_credits()
+{
+	global $context;
+	$context['copyrights']['mods'][] = '<a href="http://custom.simplemachines.org/mods/index.php?mod=4185" target="_blank" class="new_win" rel="noopener">SMF Hall Of Fame</a> v1.1, by <a href="https://github.com/SychO9">SychO</a> &copy; 2019';
+}

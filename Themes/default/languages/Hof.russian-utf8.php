@@ -1,19 +1,18 @@
 <?php
-/* --------------------- AUTHOR:
-/* SYCHO (M.S)
-/* SMF Hall Of Fame (HOF)
-/* http://sycho.22web.org
-/* Copyright 2018
-/*
-/* Licensed under the Apache License, Version 2.0 (the "License");
-/* you may not use this file except in compliance with the License.
-/* You may obtain a copy of the License at
-/*
-/*     http://www.apache.org/licenses/LICENSE-2.0
-/*
-/* Russian translation by digger
-/* https://mysmf.net (c) 2018
----------------------------- */
+/**
+ * @package SMF Hall Of Fame (HOF)
+ * @author SychO (M.S) http://sycho.22web.org
+ * @version 1.2
+ * @license Copyright 2019
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Russian translation by digger
+ * https://mysmf.net (c) 2018
+ */
 
 $txt['hof_admin']              = "Настройки зала славы";
 $txt['hof_PageTitle']          = "Зал славы";
@@ -42,5 +41,7 @@ $txt['member_since']           = "Зарегистрирован";
 $txt['hof_globalTitle']        = "Название страницы";
 $txt['hof_change_globalTitle'] = "Изменить название страницы";
 $txt['hof_ewidth']             = "Ширина колонок (Зависит от размера аватаров)";
-
+// Who's online list
+global $modSettings;
+$txt['whoall_hof'] = 'Просматривает <a href="' . $scripturl . '?action=hof">' . $modSettings['hof_globalTitle'] . '.</a>';
 ?>

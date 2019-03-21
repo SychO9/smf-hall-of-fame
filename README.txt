@@ -2,7 +2,7 @@
 [b][size=x-large]SMF Hall Of Fame Mod[/size][/b]
 Compatible With: SMF 2.0.x
 A Hall Of Fame Page Where You can Add Notable Members.
-[url=https://github.com/SychO9/SMF-Hall-Of-Fame]Github Repository[/url]
+[url=https://github.com/SychO9/smf-hall-of-fame]Github Repository[/url]
 
 [b][size=16px]Changelog[/size][/b]
 [list][li]Version 1.2[list]

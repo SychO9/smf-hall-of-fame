@@ -8,19 +8,18 @@ A Hall Of Fame Page Where You can Add Notable Members.
 
 ### Changelog
 * Version 1.2
- - \+ Replace file modifications with more hooks
- - ! Code cleanup
+	- \+ Replace file modifications with more hooks
+	- ! Code cleanup
 * Version 1.1
- - \+ Added Table Layout (Third Layout)
- - \+ Added Option to change "Hall Of Fame" Title
- - \+ Added option to change Avatar Size(member element size)(Grid Layout)
- - ! Switched to Integration hooks
- - ! Page Responsive(As long as the theme used is responsive)
- - ! Improved Admin interface
- - ! Grouped all CSS codes in one file
-
+	- \+ Added Table Layout (Third Layout)
+	- \+ Added Option to change "Hall Of Fame" Title
+	- \+ Added option to change Avatar Size(member element size)(Grid Layout)
+	- ! Switched to Integration hooks
+	- ! Page Responsive(As long as the theme used is responsive)
+	- ! Improved Admin interface
+	- ! Grouped all CSS codes in one file
 * Version 1.0
- - ! Mod Creation
+	- ! Mod Creation
 
 ### Translation
 * Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)

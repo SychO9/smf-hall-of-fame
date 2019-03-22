@@ -1,4 +1,4 @@
-[img]https://img.shields.io/github/release/SychO9/smf-fa-board-icons.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green[/img]
+[img]https://img.shields.io/github/release/SychO9/smf-fa-board-icons.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green[/img]
 [b][size=19px]SMF Hall Of Fame Mod[/size][/b]
 Compatible With: SMF 2.0.x
 A Hall Of Fame Page Where You can Add Notable Members.
@@ -6,6 +6,9 @@ A Hall Of Fame Page Where You can Add Notable Members.
 
 [b][size=16px]Changelog[/size][/b]
 [list][li]Version 1.2[list]
+ [li]! Updated to SMF2.1[list]
+  [li]+ Added option to edit the menu icon[/li][/list]
+ [/li]
  [li]+ Admin page UI improvements[/li]
  [li]+ Default layout improvements[/li]
  [li]+ Option to edit the avatar's border radius[/li]

@@ -9,6 +9,8 @@ A Hall Of Fame Page Where You can Add Notable Members.
 
 ### Changelog
 * Version 1.2
+	- ! Updated to SMF2.1
+		* \+ Added option to edit the menu icon
 	- \+ Admin page UI improvements
 	- \+ Default layout improvements
 	- \+ Option to edit the avatar's border radius

@@ -11,7 +11,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Spanish translation by Rock Lee 
- * https://www.bombercode.org Copyright 2014-2018
+ * https://www.bombercode.net Copyright 2014-2019
  */
 
 $txt['hof_admin'] = "Salón de la Fama administración";
@@ -41,19 +41,19 @@ global $modSettings, $helptxt;
 $txt['whoall_hof'] = 'Viendo el <a href="' . $scripturl . '?action=hof">'.$modSettings['hof_globalTitle'].'</a> Page';
 
 // Version 1.2
-$txt['hof_active'] = "Show the hall of fame (".$modSettings['hof_globalTitle'].")";
-$txt['hof_unactive'] = "This page is currently not visible to the public.";
-$txt['hof_square_avatar'] = "Make the avatar's height equal to it's width";
-$txt['hof_border_radius'] = "Avatar border radius";
-$txt['hof_border_radius_help'] = "in pixels, use 100% for round avatars";
-$txt['hof_ewidth'] = "Avatar width";
-$txt['hof_layout_1'] = "Boxy";
-$txt['hof_layout_2'] = "Large elements";
-$txt['hof_layout_3'] = "Table";
-$txt['hof_menu_icon'] = "Icon for the menu item";
+$txt['hof_active'] = "Mostrar el salón de la fama (".$modSettings['hof_globalTitle'].")";
+$txt['hof_unactive'] = "Esta página actualmente no es visible para el público.";
+$txt['hof_square_avatar'] = "Haz que la altura del avatar sea igual a su ancho";
+$txt['hof_border_radius'] = "Radio del borde del avatar";
+$txt['hof_border_radius_help'] = "en píxeles, utilizar 100% para avatares redondos";
+$txt['hof_ewidth'] = "Ancho del avatar";
+$txt['hof_layout_1'] = "Cajas";
+$txt['hof_layout_2'] = "Grandes elementos";
+$txt['hof_layout_3'] = "Tabla";
+$txt['hof_menu_icon'] = "Icono para el elemento del menú";
 
 // You only have to translate the first line of this :P, thanks
-$helptxt['hof_menu_icon'] = 'Each icon is defined by one or more keywords, icons and keywords may differ from one theme to another:<br>
+$helptxt['hof_menu_icon'] = 'Cada icono está definido por una o más palabras clave, los iconos y las palabras clave pueden diferir de un tema a otro:<br>
 <span class="main_icons help"></span> : help<br>
 <span class="main_icons search"></span> : search<br>
 <span class="main_icons engines"></span> : engines<br>

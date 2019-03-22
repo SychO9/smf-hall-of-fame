@@ -241,8 +241,11 @@ function ViewHof()
 {
 	global $context, $mbname, $txt, $modSettings, $smcFunc, $user_info, $sourcedir, $scripturl;
 	// The Usual Stuff First
-	isAllowedTo('view_mlist');
+	if(empty($modSettings['hof_active']) && !allowedTo('admin_forum'))
+		redirectexit('action=forum');
+
 	$context['sub_template']  = 'main';
+
 	// Query Dem Classes
 	$classes = array();
 	$query = $smcFunc['db_query']('', "
@@ -259,15 +262,30 @@ function ViewHof()
 	$smcFunc['db_free_result']($query);
 	$context['hof_classes'] = $classes;
 
+	// If we're always html resizing, assume it's too large.
+	if ($modSettings['avatar_action_too_large'] == 'option_html_resize' || $modSettings['avatar_action_too_large'] == 'option_js_resize')
+	{
+		$avatar_width = !empty($modSettings['avatar_max_width_external']) ? ' width="' . $modSettings['avatar_max_width_external'] . '"' : '';
+		$avatar_height = !empty($modSettings['avatar_max_height_external']) ? ' height="' . $modSettings['avatar_max_height_external'] . '"' : '';
+	}
+	else
+	{
+		$avatar_width = '';
+		$avatar_height = '';
+	}
+
 	// The Famers of the Class
 	$famers = array();
 	foreach ($classes as $id => $data)
 	{
 		$query2 = $smcFunc['db_query']('', "
 			SELECT 
-				m.ID_GROUP, m.avatar, m.ID_MEMBER, m.real_name, m.email_address, m.hide_email, m.date_registered, h.id_member, h.date_added, h.id_class
-			FROM ({db_prefix}members as m, {db_prefix}hof as h) 
-			WHERE h.id_member = m.ID_MEMBER
+				mem.id_group, mem.avatar, mem.id_member, mem.real_name, mem.email_address, mem.hide_email,
+				mem.date_registered, mem.avatar, mem.usertitle, h.id_member, h.date_added, h.id_class,
+				IFNULL(a.id_attach, 0) AS id_attach, a.filename, a.attachment_type
+			FROM ({db_prefix}members as mem, {db_prefix}hof as h) 
+				LEFT JOIN {db_prefix}attachments as a ON (a.id_member = mem.id_member)
+			WHERE h.id_member = mem.id_member
 				AND h.id_class = {int:class}
 			ORDER BY h.date_added",
 			array(
@@ -277,13 +295,19 @@ function ViewHof()
 		while ($row2 = $smcFunc['db_fetch_assoc']($query2))
 		{
 			$famers[$data['id']][] = array(
-				'avatar' => $row2['avatar'],
-				'ID_MEMBER' => $row2['ID_MEMBER'],
+				'avatar' => array(
+					'name' => $row2['avatar'],
+					'image' => $row2['avatar'] == '' ? ($row2['id_attach'] > 0 ? '<img class="avatar" src="' . (empty($row2['attachment_type']) ? $scripturl . '?action=dlattach;attach=' . $row2['id_attach'] . ';type=avatar' : $modSettings['custom_avatar_url'] . '/' . $row2['filename']) . '" alt="" />' : '') : ((stristr($row2['avatar'], 'http://') || stristr($row2['avatar'], 'https://')) ? '<img class="avatar" src="' . $row2['avatar'] . '"' . $avatar_width . $avatar_height . ' alt="" />' : '<img class="avatar" src="' . $modSettings['avatar_url'] . '/' . htmlspecialchars($row2['avatar']) . '" alt="" />'),
+					'href' => $row2['avatar'] == '' ? ($row2['id_attach'] > 0 ? (empty($row2['attachment_type']) ? $scripturl . '?action=dlattach;attach=' . $row2['id_attach'] . ';type=avatar' : $modSettings['custom_avatar_url'] . '/' . $row2['filename']) : '') : ((stristr($row2['avatar'], 'http://') || stristr($row2['avatar'], 'https://')) ? $row2['avatar'] : $modSettings['avatar_url'] . '/' . $row2['avatar']),
+					'url' => $row2['avatar'] == '' ? '' : ((stristr($row2['avatar'], 'http://') || stristr($row2['avatar'], 'https://')) ? $row2['avatar'] : $modSettings['avatar_url'] . '/' . $row2['avatar'])
+				),
+				'title' => $row2['usertitle'],
+				'id_member' => $row2['id_member'],
 				'realName' => $row2['real_name'],
 				'emailAddress' => $row2['email_address'],
 				'hideEmail' => $row2['hide_email'],
 				'dateRegistered' => $row2['date_registered'],
-				'ID_GROUP' => $row2['ID_GROUP'],
+				'id_group' => $row2['id_group'],
 			);
 		}
 		$smcFunc['db_free_result']($query2);
@@ -296,34 +320,51 @@ function ViewHof()
  */
 function HofSettings()
 {
-	global $context, $mbname, $txt, $smcFunc;
+	global $context, $mbname, $txt, $smcFunc, $modSettings, $sourcedir, $scripturl;
 	// Again
 	isAllowedTo('admin_forum');
-	// Layout Setting
-	if(isset($_REQUEST['hof_layout'])) {
-		$hof_layout = empty($_REQUEST['hof_layout']) ? 2 : $_REQUEST['hof_layout'];
-		updateSettings(
-			array(
-				'hof_layout' => $hof_layout,
-			)
-		);
-	}
-	if(isset($_REQUEST['active'])) {
-		updateSettings(
-			array(
-				'hof_active' => (int) $_REQUEST['active'],
-			)
-		);
-	}
-	$context['sub_template']  = 'adminset';
-	$context['page_title'] = $mbname.' - '.$txt['hof_admin'];	
 
+	// Helper file
+	require_once($sourcedir . '/ManageServer.php');
+
+	$readonly = !empty($modSettings['hof_layout']) && $modSettings['hof_layout'] != 2;
+
+	// Available Settings
+	$config_vars = array(
+		array('text', 'hof_globalTitle'),
+		array('check', 'hof_active', 'subtext'=> (empty($modSettings['hof_active']) ? '<a href="'.$scripturl.'?action=hof" target="_blank" rel="noopener">'.$txt['preview'].'</a>' : '')),
+		array('select', 'hof_layout', array(1 => $txt['hof_layout_1'], 2 => $txt['hof_layout_2'], 3 => $txt['hof_layout_3'])),
+		array('text', 'hof_ewidth', 'javascript' => ($readonly ? 'readonly="readonly"' : '')),
+		array('check', 'hof_square_avatar', 'javascript' => ($readonly ? 'onclick="return false;"' : '')),
+		array('text', 'hof_border_radius', 'subtext' => $txt['hof_border_radius_help']),
+	);
+
+	// Saving?
+	if (isset($_GET['save']))
+	{
+		checkSession();
+
+		saveDBSettings($config_vars);
+		$_SESSION['adm-save'] = true;
+
+		writeLog();
+		redirectexit('action=admin;area=hof;sa=admin');
+	}
+
+	$context['post_url'] = $scripturl . '?action=admin;area=hof;sa=admin;save';
+	$context['settings_title'] = $txt['settings'];
+
+	prepareDBSettingContext($config_vars);
+	$context['sub_template']  = 'adminset';
+
+	// Adding classes and Users UI data
+	$context['page_title'] = $mbname.' - '.$txt['hof_admin'];	
 	// Get all the Classes
 	$classes = array();
 	// QUERY
-	$query = $smcFunc['db_query']('', "
+	$query = $smcFunc['db_query']('', '
 	SELECT id_class, title, description
-	FROM {db_prefix}hof_classes");
+	FROM {db_prefix}hof_classes');
 	while ($row = $smcFunc['db_fetch_assoc']($query))
 	{
 		$classes[$row['id_class']]  = array(
@@ -337,25 +378,25 @@ function HofSettings()
 	$context['hof_classes'] = $classes;
 
 	$famers = array();
-	foreach ($classes as $id => $data)
+	foreach ($classes as $class_id => $class)
 	{
 		$query2 = $smcFunc['db_query']('', "
 			SELECT 
-				m.ID_GROUP, m.avatar, m.ID_MEMBER, m.real_name, m.email_address, m.hide_email, m.posts, m.last_login, m.date_registered, h.id_member, h.date_added, h.id_class
-			FROM ({db_prefix}members as m, {db_prefix}hof as h) 
-			WHERE h.id_member = m.ID_MEMBER
-				AND h.id_class = {int:class}
+				m.id_member, m.id_group, m.id_member, m.real_name, m.email_address, m.hide_email, m.posts,
+				m.last_login, m.date_registered, h.id_member, h.date_added, h.id_class
+			FROM {db_prefix}members as m
+				LEFT JOIN {db_prefix}hof as h ON (m.id_member = h.id_member)
+			WHERE h.id_class = {int:class}
 			ORDER BY h.date_added",
 			array(
-				'class' => $data['id'],
+				'class' => $class_id,
 			)
 		);
 		while ($row2 = $smcFunc['db_fetch_assoc']($query2))
 		{
-			$famers[$data['id']][] = array(
-				'ID_GROUP' => $row2['ID_GROUP'],
-				'avatar' => $row2['avatar'],
-				'ID_MEMBER' => $row2['ID_MEMBER'],
+			$famers[$class_id][$row2['id_member']] = array(
+				'id_group' => $row2['id_group'],
+				'id_member' => $row2['id_member'],
 				'realName' => $row2['real_name'],
 				'emailAddress' => $row2['email_address'],
 				'hideEmail' => $row2['hide_email'],
@@ -413,38 +454,5 @@ function editClass()
 		$context['hof_current_class'] = $class_content;
 	}
 	else
-		redirectexit('action=admin;area=hof;sa=admin;state=fail');
-}
-
-/**
- * Change Global Title.
- */
-function hofeditSettings()
-{
-	global $smcFunc;
-	// Are we using a custom title ?
-	if(!empty($_POST['globalTitle']))
-	{
-		$globalTitle = !empty($_POST['globalTitle']) ? $smcFunc['htmlspecialchars']($_POST['globalTitle'], ENT_QUOTES) : '';
-		updateSettings(
-			array(
-				'hof_globalTitle' => $globalTitle,
-			)
-		);
-		redirectexit('action=admin;area=hof;sa=admin;state=success');
-	}
-	// A specific avatar width ?
-	elseif(!empty($_POST['ewidth']))
-	{
-		$ewidth = !empty($_POST['ewidth']) ? (int)($_POST['ewidth']) : '';
-		updateSettings(
-			array(
-				'hof_ewidth' => $ewidth,
-			)
-		);
-		redirectexit('action=admin;area=hof;sa=admin;state=success');
-	}
-	// We're not doing anything ?
-	else 
 		redirectexit('action=admin;area=hof;sa=admin;state=fail');
 }

@@ -41,7 +41,7 @@ function hof_admin_hook(&$admin_areas)
 			'label' => $txt['hof'],
 			'file' => 'Hof.php',
 			'function' => 'Hof',
-			'custom_url' => $scripturl . '?action=admin;area=hof;sa=admin;sesc=' . $sc,
+			'custom_url' => $scripturl . '?action=admin;area=hof;sa=admin',
 			'icon' => 'themes.gif',
 		),
 	);
@@ -60,7 +60,7 @@ function hof_menu_hook(&$menu_buttons)
 		'hof' => array(
 			'title' => !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof'],
 			'href' => $scripturl . '?action=hof',
-			'show' => allowedTo('view_mlist') && $modSettings['hof_active'],
+			'show' => !empty($modSettings['hof_active']),
 			'icon' => '',
 		),
 	);

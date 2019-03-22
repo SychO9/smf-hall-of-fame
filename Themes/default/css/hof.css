@@ -9,25 +9,46 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-.hof_cheader h1 {font-size: 16px;padding: 10px 0 5px 0;}
-.hof_member {display: inline-block;margin: 8px;padding: 0;background: #acacac;width: 170px;vertical-align: top;}
-.hof_class {text-align: center;}
-.hof_mImage {background: #bcbcbc;}
-.hof_who {padding: 10px 0;color: black;}
+.hof_cheader h1 {
+	font-size: 16px;
+	padding: 10px 0 5px 0;
+}
+.hof_member {
+	display: inline-block;
+	margin: 8px;
+	padding: 0;
+	width: 170px;
+	vertical-align: top;
+}
+.hof_class {
+	text-align: center;
+}
+.hof_who {
+	padding: 10px 0;
+	color: black;
+}
 .hof_who a {
 	color: black;
 }
-.hof_who div {font-size: 11px;}
-.hof_member:hover .hof_mImage img {opacity: 1;}
-.hof_mImage img {width: 100%;height: 100%;opacity: 0.8;vertical-align: text-bottom;border-radius: 0;-webkit-border-radius: 0;-moz-border-radius: 0;-ms-border-radius: 0;-o-border-radius: 0;}
+.hof_who div {
+	font-size: 11px;
+}
+.hof_mImage:hover img {
+	filter: brightness(110%);
+}
+.hof_mImage img {
+	width: 100%;
+	vertical-align: text-bottom;
+	border-radius: 4px;
+}
+.hof_famer_name {
+	font-size: 15px;
+	margin: 2px 0 7px;
+}
 .hof_table img.avatar {
 	width: 40px;
 	height: 40px;
 	border-radius: 4px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-ms-border-radius: 4px;
-	-o-border-radius: 4px;
 	vertical-align: middle;
 	margin: 0;
 }
@@ -35,7 +56,6 @@
 table.hof_table td {
 	padding: 2px 8px;
 }
-
 table.hof_table th {
 	padding: 0;
 }
@@ -47,8 +67,7 @@ table.hof_table th {
 	line-height: 18px;
 	padding: 8px 8px;
 }
-.hof_table thead tr.catbg {}
-.hof_admin input, .hof_admin textarea, .hof_admin select {
+.hof_upper_admin input, .hof_upper_admin textarea, .hof_upper_admin select {
 	padding: 10px 12px;
 	margin: 1px 0;
 	width: 100%;
@@ -76,11 +95,7 @@ table.hof_table th {
 .hof_admin input[type="submit"] {
 	cursor: pointer;
 }
-.hof_table .nam {
-	vertical-align: middle;
-	display: inline-block;
-	margin-left: 5px;
-}
+.hof_table_det {margin-left: 7px;}
 .hof_show {
 	display: none;
 }
@@ -102,4 +117,25 @@ table.hof_table td {
 	.hof_reg {
 		display: none;
 	}
+}
+.hof_manage_ui {
+	display: flex;
+	margin: 6px 0;
+}
+.hof_add_famer {
+	padding-left: 2px;
+}
+.hof_add_class {
+	padding-right: 2px;
+}
+.hof_add_class, .hof_add_famer {
+	flex: 1 1 auto;
+}
+.hof_features {
+	display: flex;
+	align-items: center;
+}
+.hof_grow {
+	flex-grow: 1;
+	padding: 0 10px;
 }

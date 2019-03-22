@@ -24,6 +24,9 @@ elseif (!defined('SMF'))
 	updateSettings(array('hof_layout' => 2));
 	updateSettings(array('hof_active' => 1));
 	updateSettings(array('hof_globalTitle' => 'Hall Of Fame'));
+	updateSettings(array('hof_ewidth' => '120'));
+	updateSettings(array('hof_border_radius' => '100%'));
+	updateSettings(array('hof_square_avatar' => 1));
 	
 	// Create 'hof' Table which contains all members added to any classes.
 	$db_columns = array(
@@ -32,21 +35,24 @@ elseif (!defined('SMF'))
 					'type' => 'mediumint',
 					'size' => 8,
 					'null' => false,
-					'unsigned' => true
+					'unsigned' => true,
+					'default' => ''
 			),
 			array(
 					'name' => 'date_added',
 					'type' => 'int',
 					'size' => 11,
 					'null' => false,
-					'unsigned' => true
+					'unsigned' => true,
+					'default' => ''
 			),
 			array(
 					'name' => 'id_class',
 					'type' => 'mediumint',
 					'size' => 8,
 					'null' => false,
-					'unsigned' => true
+					'unsigned' => true,
+					'default' => ''
 			),
 	);
 	$smcFunc['db_create_table']('{db_prefix}hof', $db_columns, array(), array(), 'ignore', 'fatal');
@@ -66,11 +72,15 @@ elseif (!defined('SMF'))
 					'name' => 'title',
 					'type' => 'varchar',
 					'size' => 256,
+					'null' => false,
+					'default' => ''
 			),
 			array(
 					'name' => 'description',
 					'type' => 'varchar',
 					'size' => 256,
+					'null' => false,
+					'default' => ''
 			),
 	);
 	$db_indexes2 = array(

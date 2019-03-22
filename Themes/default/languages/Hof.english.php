@@ -31,14 +31,23 @@ $txt['hof_error_unknown'] = "Something Went Wrong";
 $txt['hof_success'] = "Operation Carried Out Successfully";
 $txt['hof_create_class_first'] = "Create a Class To Begin";
 $txt['hof_modify'] = "Modify";
-$txt['hof_act_deact'] = "Activate/Deactivate Page:";
 $txt['hof_activate'] = "Activate";
 $txt['hof_deactivate'] = "Deactivate";
 $txt['member_since'] = "Member Since";
 $txt['hof_globalTitle'] = "Global Title";
-$txt['hof_change_globalTitle'] = "Change Global Title";
-$txt['hof_ewidth'] = "Element Width (Affecting Avatar Size)";
+
 // Who's online list
 global $modSettings;
 $txt['whoall_hof'] = 'Viewing the <a href="' . $scripturl . '?action=hof">'.$modSettings['hof_globalTitle'].'</a> Page';
+
+// Version 1.2
+$txt['hof_active'] = "Show the hall of fame (".$modSettings['hof_globalTitle'].")";
+$txt['hof_unactive'] = "This page is currently not visible to the public.";
+$txt['hof_square_avatar'] = "Make the avatar's height equal to it's width";
+$txt['hof_border_radius'] = "Avatar border radius";
+$txt['hof_border_radius_help'] = "in pixels, use 100% for round avatars";
+$txt['hof_ewidth'] = "Avatar width";
+$txt['hof_layout_1'] = "Boxy";
+$txt['hof_layout_2'] = "Large elements";
+$txt['hof_layout_3'] = "Table";
 ?>

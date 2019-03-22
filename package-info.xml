@@ -18,19 +18,20 @@
 	</install>
 
 	<uninstall for="2.0 - 2.0.99">
-		<modification type="file" reverse="true">Hof.xml</modification>
-		<remove-file name="Themes/default/Hof.template.php" />
-		<remove-file name="Themes/default/languages/Hof.english.php" />
-		<remove-file name="Themes/default/languages/Hof.russian.php" />
-		<remove-file name="Themes/default/languages/Hof.russian-utf8.php" />
-		<remove-file name="Themes/default/images/admin/hof.png" />
-		<remove-file name="Themes/default/images/admin/hof_remove.png" />
-		<remove-file name="Themes/default/images/admin/hof_user.png" />
-		<remove-file name="Themes/default/images/admin/hof_list.png" />
-		<remove-file name="Themes/default/images/admin/hof_grid.png" />
-		<remove-file name="Themes/default/images/admin/hof_table.png" />
-		<remove-file name="Sources/Hof.php" />
-		<remove-file name="Sources/Subs-Hof.php" />
+		<remove-file name="$themedir/Hof.template.php" />
+		<remove-file name="$languagedir/Hof.english.php" />
+		<remove-file name="$languagedir/Hof.russian.php" />
+		<remove-file name="$languagedir/Hof.russian-utf8.php" />
+		<remove-file name="$languagedir/Hof.spanish_latin.php" />
+		<remove-file name="$languagedir/Hof.spanish_latin-utf8.php" />
+		<remove-file name="$themedir/images/admin/hof.png" />
+		<remove-file name="$themedir/images/admin/hof_remove.png" />
+		<remove-file name="$themedir/images/admin/hof_user.png" />
+		<remove-file name="$themedir/images/admin/hof_list.png" />
+		<remove-file name="$themedir/images/admin/hof_grid.png" />
+		<remove-file name="$themedir/images/admin/hof_table.png" />
+		<remove-file name="$sourcedir/Hof.php" />
+		<remove-file name="$sourcedir/Subs-Hof.php" />
 		<code>hooks.php</code>
 	</uninstall>
 

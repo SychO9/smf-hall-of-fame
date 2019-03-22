@@ -34,14 +34,20 @@ $txt['hof_error_unknown']      = "Что-то пошло не так!";
 $txt['hof_success']            = "Успешно выполнено";
 $txt['hof_create_class_first'] = "Сначала добавьте разделы.";
 $txt['hof_modify']             = "Редактировать";
-$txt['hof_act_deact']          = "Включить/Выключить страницу:";
-$txt['hof_activate']           = "Включить";
-$txt['hof_deactivate']         = "Выключить";
 $txt['member_since']           = "Зарегистрирован";
 $txt['hof_globalTitle']        = "Название страницы";
-$txt['hof_change_globalTitle'] = "Изменить название страницы";
-$txt['hof_ewidth']             = "Ширина колонок (Зависит от размера аватаров)";
 // Who's online list
 global $modSettings;
 $txt['whoall_hof'] = 'Просматривает <a href="' . $scripturl . '?action=hof">' . $modSettings['hof_globalTitle'] . '.</a>';
+
+// Version 1.2
+$txt['hof_active'] = "Show the hall of fame (".$modSettings['hof_globalTitle'].")";
+$txt['hof_unactive'] = "This page is currently not visible to the public.";
+$txt['hof_square_avatar'] = "Make the avatar's height equal to it's width";
+$txt['hof_border_radius'] = "Avatar border radius";
+$txt['hof_border_radius_help'] = "in pixels, use 100% for round avatars";
+$txt['hof_ewidth'] = "Avatar width";
+$txt['hof_layout_1'] = "Boxy";
+$txt['hof_layout_2'] = "Large elements";
+$txt['hof_layout_3'] = "Table";
 ?>

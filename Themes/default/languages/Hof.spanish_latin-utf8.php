@@ -34,14 +34,20 @@ $txt['hof_error_unknown'] = "Algo salió mal :(";
 $txt['hof_success'] = "Operación llevada a cabo con éxito";
 $txt['hof_create_class_first'] = "Crear una clase para comenzar";
 $txt['hof_modify'] = "Modificar";
-$txt['hof_act_deact'] = "Activar/Desactivar página:";
-$txt['hof_activate'] = "Activar";
-$txt['hof_deactivate'] = "Desactivar";
 $txt['member_since'] = "Miembro desde";
 $txt['hof_globalTitle'] = "Título de la página";
-$txt['hof_change_globalTitle'] = "Cambiar el título de la página";
-$txt['hof_ewidth'] = "Ancho del elemento (que afecta el tamaño del avatar)";
 // Who's Online list
 global $modSettings;
-$txt['whoall_hof'] = 'Viendo el <a href="' . $scripturl . '?action=hof">'.$modSettings['hof_globalTitle'].'</a> Page';	
+$txt['whoall_hof'] = 'Viendo el <a href="' . $scripturl . '?action=hof">'.$modSettings['hof_globalTitle'].'</a> Page';
+
+// Version 1.2
+$txt['hof_active'] = "Show the hall of fame (".$modSettings['hof_globalTitle'].")";
+$txt['hof_unactive'] = "This page is currently not visible to the public.";
+$txt['hof_square_avatar'] = "Make the avatar's height equal to it's width";
+$txt['hof_border_radius'] = "Avatar border radius";
+$txt['hof_border_radius_help'] = "in pixels, use 100% for round avatars";
+$txt['hof_ewidth'] = "Avatar width";
+$txt['hof_layout_1'] = "Boxy";
+$txt['hof_layout_2'] = "Large elements";
+$txt['hof_layout_3'] = "Table";
 ?>

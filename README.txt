@@ -6,12 +6,16 @@ A Hall Of Fame Page Where You can Add Notable Members.
 
 [b][size=16px]Changelog[/size][/b]
 [list][li]Version 1.2[list]
- [li]\+ Replace file modifications with more hooks[/li]
+ [li]+ Admin page UI improvements[/li]
+ [li]+ Default layout improvements[/li]
+ [li]+ Option to edit the avatar's border radius[/li]
+ [li]+ Option to fit the avatar's height to its width[/li]
+ [li]+ Replace file modifications with more hooks[/li]
  [li]! Code cleanup[/li][/list][/li]
 [li]Version 1.1[list]
- [li]\+ Added Table Layout (Third Layout)[/li]
- [li]\+ Added Option to change "Hall Of Fame" Title[/li]
- [li]\+ Added option to change Avatar Size(member element size)(Grid Layout)[/li]
+ [li]+ Added Table Layout (Third Layout)[/li]
+ [li]+ Added Option to change "Hall Of Fame" Title[/li]
+ [li]+ Added option to change Avatar Size(member element size)(Grid Layout)[/li]
  [li]! Switched to Integration hooks[/li]
  [li]! Page Responsive(As long as the theme used is responsive)[/li]
  [li]! Improved Admin interface[/li]
@@ -20,8 +24,8 @@ A Hall Of Fame Page Where You can Add Notable Members.
  [li]! Mod Creation[/li][/list][/li]
 [/list]
 [b][size=16px]Translation[/size][/b]
-* Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)
-* Russian Translation By: [digger](https://github.com/realdigger)
+* Spanish Translation By: [url=https://github.com/RockLee-BC]Rock Lee[/url]
+* Russian Translation By: [url=https://github.com/realdigger]digger[/url]
 
 [b][size=16px]License[/size][/b]
 SMF Hall Of Fame Mod is licensed under the Apache License, Version 2.0. A full copy of this license is included in the package file.

@@ -8,6 +8,10 @@ A Hall Of Fame Page Where You can Add Notable Members.
 
 ### Changelog
 * Version 1.2
+	- \+ Admin page UI improvements
+	- \+ Default layout improvements
+	- \+ Option to edit the avatar's border radius
+	- \+ Option to fit the avatar's height to its width
 	- \+ Replace file modifications with more hooks
 	- ! Code cleanup
 * Version 1.1

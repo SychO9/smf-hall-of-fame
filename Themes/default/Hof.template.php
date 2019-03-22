@@ -18,30 +18,39 @@ function template_main()
 {
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $memberContext;
 
-	if(!$modSettings['hof_active'] && !allowedTo('admin_forum'))
-		redirectexit('action=forum');
+	if(empty($modSettings['hof_active']))
+		echo '
+		<div class="errorbox">
+			', $txt['hof_unactive'], '
+		</div>';
+
+	if(!empty($modSettings['hof_border_radius']))
+		$border_radius = strpos($modSettings['hof_border_radius'], '%') !== false ? $modSettings['hof_border_radius'] : $modSettings['hof_border_radius'].'px';
+
+	$border_radius = !empty($border_radius) ? 'border-radius:'.$border_radius : '';
+
+	$context['hof_border_radius'] = $border_radius;
 
 	if((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 1) || empty($modSettings['hof_layout']))
 		template_layout1();
 	elseif((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 3) || empty($modSettings['hof_layout']))
 		template_layout3();
+	// I don't remember why but layout 2 is the default one..
 	else
 		template_layout2();
 }
 
 /**
- * The unusual layout
+ * The big avatars layout
  */
 function template_layout2()
 {
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $memberContext, $sc;
 	
-	$permit = allowedTo('admin_forum');
-	
 	$alter = true;
 	if(!empty($context['hof_classes'])) {
-		foreach($context['hof_classes'] as $id => $data2) {
-			
+		foreach($context['hof_classes'] as $id => $data2)
+		{
 			echo'
 			<div class="windowbg', $alter ? '' : '2', '">
 				<span class="topslice"><span></span></span>
@@ -51,28 +60,35 @@ function template_layout2()
 			<div class="hof_class">
 				<div class="hof_cheader"><h1>', $data2['title'], '</h1><span class="smalltext">', $data2['description'], '</span></div><hr>';
 			
-			$FAMERS = count($context['hof_famers'][$data2['id']]);
-			if($FAMERS==0)
+			$famer = count($context['hof_famers'][$data2['id']]);
+			if(empty($famer))
 				continue;
-			foreach($context['hof_famers'][$data2['id']] as $id=>$data) {
-				
-				// Get The Avatar the easy Way
-				$hof_member = $data['ID_MEMBER'];
-			    loadMemberData($data['ID_MEMBER']);
-			    loadMemberContext($data['ID_MEMBER']);
-				
-				$dateR = explode(', ', timeformat($data['dateRegistered'], false));
-				
+
+			foreach($context['hof_famers'][$data2['id']] as $id => $data)
+			{
 				echo'
-				<div class="hof_member" style="', !empty($modSettings['hof_ewidth']) ? 'width: '.$modSettings['hof_ewidth'].'px' : '', '">
-					<div class="hof_mImage">', !empty($memberContext[$hof_member]['avatar']['image']) ? $memberContext[$hof_member]['avatar']['image'] : '<img class="avatar" src="'.$settings['default_theme_url'].'/images/admin/hof_user.png" />', '</div>
-					<div class="hof_who"><h4><a href="', $scripturl, '?action=profile;u=', $data['ID_MEMBER'], '">', $data['realName'], '</a></h4><div>', $dateR[0], ', ', $dateR[1], '</div></div>
-				</div>';
+						<div class="hof_member">
+							<div class="hof_mImage">
+								<img style="', !empty($modSettings['hof_ewidth']) ? 'width: '.$modSettings['hof_ewidth'].'px;'.(!empty($modSettings['hof_square_avatar']) ? 'height:'.$modSettings['hof_ewidth'].'px;' : '').'' : '', '', $context['hof_border_radius'], '" class="avatar" src="', !empty($data['avatar']['image']) ? 
+									$data['avatar']['href'] : 
+									$settings['default_theme_url'].'/images/admin/hof_user.png', '" alt="">
+							</div>
+							<div class="hof_who">
+								<h4 class="hof_famer_name">
+									<a href="', $scripturl, '?action=profile;u=', $data['id_member'], '">', $data['realName'], '</a>
+								</h4>
+								<div class="hof_more">
+									', !empty($data['title']) ? $data['title'] : '', '
+								</div>
+							</div>
+						</div>';
 			}
 			
-			echo'</div>';
+			echo'
+					</div>';
 			
-			echo'</div>
+			echo'
+				</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
 			$alter = !$alter;
@@ -88,16 +104,17 @@ function template_layout2()
 }
 
 /**
- * The boxy layout
+ * The Unusual layout
  */
 function template_layout1()
 {
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc;
-	$permit = allowedTo('admin_forum');
 	
 	$alter = true;
-	if(!empty($context['hof_classes'])) {
-		foreach($context['hof_classes'] as $id => $data) {
+	if(!empty($context['hof_classes']))
+	{
+		foreach($context['hof_classes'] as $id => $data)
+		{
 			// Show Classes.
 			echo '
 			<div class="windowbg', $alter ? '' : '2', '">
@@ -111,28 +128,27 @@ function template_layout1()
 						<div class="hof_members">';
 						if(!empty($context['hof_famers'][$data['id']]))
 							foreach($context['hof_famers'][$data['id']] as $id=>$data) {
-								echo '<a href="', $scripturl, '?action=profile;u=', $data['ID_MEMBER'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
-										'.$data['realName'].'
-									</a>';
+								echo '
+								<a href="', $scripturl, '?action=profile;u=', $data['id_member'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
+									'.$data['realName'].'
+								</a>';
 							}
-						echo'</div>
+						echo'
+						</div>
 					</div>
 				</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
+
 			$alter = !$alter;
 		}
-		
-		// Do Not Touch
-		echo'<hr><div class="titlebg" style="padding: 6px 12px;border-radius: 4px;font-size: 11px;">', hexToStr($context['key']), '', $permit ? '<span style="float:right"><a href="'.$scripturl.'?action=admin;area=hof;sa=admin;sesc='.$sc.'">Admin Page</a></span>' : '', '</div>';
-
-	} else {
+	} 
+	else
 		echo'<div class="windowbg">
 				<span class="topslice"><span></span></span>
 				<div class="content">'.$txt['hof_empty_classes'].'</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
-	}
 }
 
 /**
@@ -141,7 +157,6 @@ function template_layout1()
 function template_layout3()
 {
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc, $memberContext;
-	$permit = allowedTo('admin_forum');
 	
 	if(!empty($context['hof_classes'])) {
 		foreach($context['hof_classes'] as $id => $data)
@@ -164,20 +179,20 @@ function template_layout3()
 					', !empty($data['description']) ? '<tr class="windowbg hof_description"><td colspan="2"><smalltext>'.$data['description'].'</smalltext></td></tr>' : '';
 				$alter = true;
 				if(!empty($context['hof_famers'][$data['id']]))
-					foreach($context['hof_famers'][$data['id']] as $id=>$data2) {
-						// Get The Avatar the easy Way
-						$hof_member = $data2['ID_MEMBER'];
-						loadMemberData($data2['ID_MEMBER']);
-						loadMemberContext($data2['ID_MEMBER']);
+					foreach($context['hof_famers'][$data['id']] as $id=>$data2)
+					{
 						$dateR = explode(', ', timeformat($data2['dateRegistered'], false));
 						
 						echo '
 						<tr class="windowbg', $alter ? 2 : '', '">
-							<td>
-								<a href="', $scripturl, '?action=profile;u=', $data2['ID_MEMBER'], '">
-									', !empty($memberContext[$hof_member]['avatar']['image']) ? $memberContext[$hof_member]['avatar']['image'] : '<img class="avatar" src="'.$settings['default_theme_url'].'/images/admin/hof_user.png" />', '
-									<span class="nam">'.$data2['realName'].'<br><smalltext class="hof_show" style="font-size:12px">', $dateR[0], ', ', $dateR[1], '</smalltext></span>
-								</a>
+							<td class="hof_features">
+									<img style="', $context['hof_border_radius'], '" class="avatar" src="', !empty($data2['avatar']['image']) ? 
+										$data2['avatar']['href'] : 
+										$settings['default_theme_url'].'/images/admin/hof_user.png', '" alt="">
+									<div class="hof_table_det">
+										<div class="nam"><a href="', $scripturl, '?action=profile;u=', $data2['id_member'], '">'.$data2['realName'].'</a></div>
+										<div class="smalltext">', $data2['title'], '</div>
+									</div>
 							</td>
 							<td align="right" class="hof_reg">', $txt['member_since'], ': <strong>', $dateR[0], ', ', $dateR[1], '</strong></td>
 						</tr>';
@@ -204,190 +219,174 @@ function template_layout3()
 function template_adminset()
 {
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $smcFunc;
-	$STATE = !empty($_REQUEST['state']) ? $_REQUEST['state'] : null;
-	$MESSAGE = !empty($_REQUEST['message']) ? $smcFunc['htmlspecialchars']($_REQUEST['message']) : null;
-	if(!empty($STATE)) {
-		if($STATE == "success")
-			echo'<div class="windowbg" id="profile_success">
-					', $txt['hof_success'], '
-				</div>';
-		else {
-			echo'<div class="errorbox">';
-				if(!empty($MESSAGE))
-					echo'<strong>', $MESSAGE, '</strong><br/>';
-				else 
-					echo'<strong>', $txt['hof_error_unknown'], '</strong><br/>';
-					
-				echo'
-				</div>';
-		}
-	}
+
+	// A successful or failed operation ?
+	$state = !empty($_REQUEST['state']) ? $smcFunc['htmlspecialchars']($_REQUEST['state'], ENT_QUOTES) : '';
+	// Success
+	if(!empty($state) && $state == "success")
+		echo'
+	<div class="windowbg" id="profile_success">
+		', $txt['hof_success'], '
+	</div>';
+	// Error
+	elseif(!empty($state) && $state == "error")
+		echo'
+	<div class="errorbox">
+		<strong>', $txt['hof_error_unknown'], '</strong><br/>
+	</div>';
 	
-	echo'<div class="hof_admin">';
-	
-	echo'<div class="cat_bar">
-			<h3 class="catbg">
-				', $txt['hof_classes'], '
-			</h3>
-		</div>';
-			$alter = true;
-			if(!empty($context['hof_classes']))
-				foreach($context['hof_classes'] as $id => $data)
-				{
-					// Show Classes.
-					echo '
-					<div class="windowbg', $alter ? '' : '2', '">
-						<span class="topslice"><span></span></span>
-						<div class="content features">
-							<img class="features_image png_fix" src="', $settings['default_theme_url'], '/images/admin/hof.png" width="65" alt="', $data['title'], '">
-							<div class="features_switch" id="js_feature_cd" style="">
-								<a href="', $scripturl, '?action=hof;sa=remove_class;id=', $data['id'],'">
-									<img src="', $settings['default_theme_url'], '/images/admin/hof_remove.png" id="switch_cd" style="margin-top: 1.3em;" alt="', $txt['hof_delete_class'], '" title="', $txt['hof_delete_class'], '">
-								</a>
-							</div>
-							<h4 style="padding-top: 5px">', $data['title'], '
-								<a href="', $scripturl, '?action=hof;sa=edit;class=', $data['id'],'">
+	echo'
+	<div class="hof_admin">
+		<div class="hof_upper_admin">
+			<div class="hof_class_list">
+				<div class="cat_bar">
+					<h3 class="catbg">
+						', $txt['hof_classes'], '
+					</h3>
+				</div>';
+
+	$alter = true;
+	if(!empty($context['hof_classes']))
+		foreach($context['hof_classes'] as $class_id => $class)
+		{
+			// Show Classes.
+			echo '
+				<div class="windowbg', $alter ? '' : '2', '">
+					<span class="topslice"><span></span></span>
+					<div class="content features hof_features">
+						<div class="hof_feat_ele">
+							<img class="hof_feat_img" src="', $settings['default_theme_url'], '/images/admin/hof.png" width="65" alt="', $class['title'], '">
+						</div>
+						<div class="hof_feat_ele hof_grow">
+							<h4 style="padding-top: 5px">
+								', $class['title'], '
+								<a href="', $scripturl, '?action=hof;sa=edit;class=', $class_id,'">
 									<img src="', $settings['default_theme_url'], '/images/icons/modify_inline.gif" id="switch_cd" style="vertical-align:middle" alt="', $txt['hof_modify'], '" title="', $txt['hof_modify'], '">
 								</a>
 							</h4>
-							<p>', $data['description'], '<br/>';
-							if(!empty($context['hof_famers'][$data['id']]))
-								foreach($context['hof_famers'][$data['id']] as $id=>$data) {
-									echo '<div class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">'.$data['realName'].'
-									<a href="', $scripturl, '?action=hof;sa=remove_famer;id=', $data['ID_MEMBER'], ';class=', $data['class'], '"><img src="', $settings['theme_url'], '/images/pm_recipient_delete.gif" alt="', $txt['hof_delete_famer'], '" title="', $txt['hof_delete_famer'], '" style="margin: 0 0 0 4px;" /></a></div>';
-								}
-							echo'</p>
+							<p>', $class['description'], '<br/>';
+
+					if(!empty($context['hof_famers'][$class_id]))
+						foreach($context['hof_famers'][$class_id] as $famer_id => $famer) {
+							echo '
+								<div class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">'.$famer['realName'].'
+								<a href="', $scripturl, '?action=hof;sa=remove_famer;id=', $famer_id, ';class=', $class_id, '"><img src="', $settings['theme_url'], '/images/pm_recipient_delete.gif" alt="', $txt['hof_delete_famer'], '" title="', $txt['hof_delete_famer'], '" style="margin: 0 0 0 4px;" /></a></div>';
+						}
+
+			echo'
+							</p>
 						</div>
-						<span class="botslice clear_right"><span></span></span>
-					</div>';
-					$alter = !$alter;
-				}
-			else
-			{
-				echo'<div class="windowbg">
+						<div class="hof_feat_ele">
+							<a href="', $scripturl, '?action=hof;sa=remove_class;id=', $class_id,'">
+								<img src="', $settings['default_theme_url'], '/images/admin/hof_remove.png" id="switch_cd" alt="', $txt['hof_delete_class'], '" title="', $txt['hof_delete_class'], '">
+							</a>
+						</div>
+					</div>
+					<span class="botslice clear_right"><span></span></span>
+				</div>';
+
+			$alter = !$alter;
+		}
+	else
+		echo'
+				<div class="windowbg">
+					<span class="topslice"><span></span></span>
+					<div class="content">
+						', $txt['hof_empty_classes'], '
+					</div>
+					<span class="botslice clear_right"><span></span></span>
+				</div>';
+			
+	// Add a Class.
+	echo'	</div>
+			<div class="hof_manage_ui">
+				<div class="hof_add_class">
+					<div class="cat_bar">
+						<h3 class="catbg">
+							', $txt['hof_add_class'], '
+						</h3>
+					</div>
+					<div class="windowbg">
 						<span class="topslice"><span></span></span>
 						<div class="content">
-							', $txt['hof_empty_classes'], '
+							<form action="', $scripturl, '?action=hof;sa=add_class" method="post">
+							<input id="title" name="title" type="text" maxlength="50" placeholder="', $txt['hof_title'], '" required/><br/>
+							<textarea id="description" name="description" placeholder="', $txt['hof_description'], '"></textarea><br/>
+							<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
+						</form>
 						</div>
-						<span class="botslice clear_right"><span></span></span>
-					</div>';
-			}
-			
-						// Add a Class.
-						echo'
-						<div class="modblock_left">
-							<div class="cat_bar">
-								<h3 class="catbg">
-									', $txt['hof_add_class'], '
-								</h3>
-							</div>
-							<div class="windowbg">
-								<span class="topslice"><span></span></span>
-								<div class="content">
-									<form action="', $scripturl, '?action=hof;sa=add_class" method="post">
-									<input id="title" name="title" type="text" maxlength="50" placeholder="', $txt['hof_title'], '" required/><br/>
-									<textarea id="description" name="description" placeholder="', $txt['hof_description'], '"></textarea><br/>
-									<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
-								</form>
-								</div>
-								<span class="botslice"><span></span></span>
-							</div>
-						</div>';
-						
-						// Add a User.
-						echo'
-						<div class="modblock_right">
-							<div class="cat_bar">
-								<h3 class="catbg">
-									', $txt['hof_add_famer'], '
-								</h3>
-							</div>
-							<div class="windowbg">
-								<span class="topslice"><span></span></span>
-								<div class="content">';
-								if(!empty($context['hof_classes'])) {
-									echo'
-									<form action="', $scripturl, '?action=hof;sa=add_famer" method="post">
-										<input id="famer" name="famer" type="text" maxlength="50" placeholder="', $txt['hof_famer'], '" required/>
-										<div id="famer_container"></div><br/>
-										<input id="id" name="id" type="hidden" />
-										<input id="date" name="date" type="hidden" value="', forum_time(false), '"/>
-										<select name="class">';
-											foreach($context['hof_classes'] as $id=>$data) {
-												echo'<option value="', $data['id'], '" id="', $data['id'], '">', $data['title'], '</option>';
-											}
-										echo'
-										</select><br/>
-										<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
-									</form>'; 
-								} else 
-									echo $txt['hof_create_class_first'];
-								echo'
-								</div>
-								<span class="botslice"><span></span></span>
-							</div>
-						</div>';
-			echo'<div class="clear"></div>';
-			echo'
-			<div class="cat_bar">
-				<h3 class="catbg">
-					', $txt['settings'], '
-				</h3>
-			</div>
-			<div class="windowbg2">
-				<span class="topslice"><span></span></span>
-				<div class="content">';
-			// Change Global Title "Hall Of Fame", for other uses.
-			echo'<fieldset id="globalTitle" class="hof_inline">
-					<legend>', $txt['hof_change_globalTitle'], ' (', $txt['hof'], ')</legend>
-					<form action="', $scripturl, '?action=hof;sa=hofeditSettings" method="post"><input type="text" name="globalTitle" id="globalTitle" value="', !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof'], '" placeholder="', $txt['hof_globalTitle'], '" required/><input type="submit" name="submit" value="', $txt['hof_submit'], '"/></form>
-				</fieldset>';			
-			// Activate/Deactivate Page.
-			$active = $modSettings['hof_active'];
-			echo $txt['hof_act_deact'].' <a href="'.$scripturl.'?action=admin;area=hof;sa=admin;active=', $active ? 0 : 1, '">', $active ? $txt['hof_deactivate'] : $txt['hof_activate'], '</a><br/>';
-			echo'<hr>';
-			// Theme Selection
-			$layout1 = (!empty($modSettings['hof_layout']) && $modSettings['hof_layout']==1) || empty($modSettings['hof_layout']);
-			$layout2 = !empty($modSettings['hof_layout']) && $modSettings['hof_layout']==2;
-			$layout3 = !empty($modSettings['hof_layout']) && $modSettings['hof_layout']==3;
-			echo '<fieldset id="hof_layout" class="hof_inline">
-					<legend>', $txt['hof_layout'], '</legend>
-					<div class="hof_layout">
-						<a href="', $scripturl, '?action=admin;area=hof;sa=admin;hof_layout=1" class="', $layout1 ? 'active' : '', '"><img src="', $settings['default_theme_url'], '/images/admin/hof_list.png" alt="List" /></a>
-						<a href="', $scripturl, '?action=admin;area=hof;sa=admin;hof_layout=2" class="', $layout2 ? 'active' : '', '"><img src="', $settings['default_theme_url'], '/images/admin/hof_grid.png" alt="Grid" /></a>
-						<a href="', $scripturl, '?action=admin;area=hof;sa=admin;hof_layout=3" class="', $layout3 ? 'active' : '', '"><img src="', $settings['default_theme_url'], '/images/admin/hof_table.png" alt="Table" /></a>';
-					if($layout2)
-					echo'<br/>
-						<form action="', $scripturl, '?action=hof;sa=hofeditSettings" method="post">', $txt['hof_ewidth'], '<input type="number" name="ewidth" id="ewidth" placeholder="170" value="', !empty($modSettings['hof_ewidth']) ? $modSettings['hof_ewidth'] : '170', '"/><input type="submit" name="submit" value="', $txt['hof_submit'], '"/></form>';
-					echo'
+						<span class="botslice"><span></span></span>
 					</div>
-				</fieldset>';
-				
-				echo'
+				</div>';
+	
+	// Add a User.
+	echo'
+				<div class="hof_add_famer">
+					<div class="cat_bar">
+						<h3 class="catbg">
+							', $txt['hof_add_famer'], '
+						</h3>
+					</div>
+					<div class="windowbg">
+						<span class="topslice"><span></span></span>
+						<div class="content">';
+
+						if(!empty($context['hof_classes']))
+						{
+							echo'
+							<form action="', $scripturl, '?action=hof;sa=add_famer" method="post">
+								<input id="famer" name="famer" type="text" maxlength="50" placeholder="', $txt['hof_famer'], '" required/>
+								<div id="famer_container"></div><br/>
+								<input id="id" name="id" type="hidden" />
+								<input id="date" name="date" type="hidden" value="', forum_time(false), '"/>
+								<select name="class">';
+
+							foreach($context['hof_classes'] as $class_id => $class)
+							{
+								echo'
+									<option value="', $class_id, '" id="', $class_id, '">', $class['title'], '</option>';
+							}
+
+								echo'
+								</select><br/>
+								<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
+							</form>'; 
+						}
+						else 
+							echo $txt['hof_create_class_first'];
+
+						echo'
+						</div>
+						<span class="botslice"><span></span></span>
+					</div>
 				</div>
-				<span class="botslice"><span></span></span>
 			</div>
-		</div>';
-			
-			// JS !!!
-			echo'
-			<script type="text/javascript" src="', $settings['default_theme_url'], '/scripts/suggest.js?fin20"></script>
-			<script type="text/javascript"><!-- // --><![CDATA[
-				var oModeratorSuggest = new smc_AutoSuggest({
-					sSelf: \'oModeratorSuggest\',
-					sSessionId: \'', $context['session_id'], '\',
-					sSessionVar: \'', $context['session_var'], '\',
-					sSuggestId: \'famer\',
-					sControlId: \'famer\',
-					sSearchType: \'member\',
-					bItemList: false,
-					sPostName: \'famer_single\',
-					sURLMask: \'action=profile;u=%item_id%\',
-					sTextDeleteItem: \'', $txt['autosuggest_delete_item'], '\',
-					sItemListContainerId: \'famer_container\',
-					aListItems: [],
-				});
-			// ]]></script>';
+		</div>
+	</div>
+	<div class="clear"></div>';
+
+	// Generic templates rock !
+	template_show_settings();
+
+	// AutoSuggest Js
+	echo'
+	<script type="text/javascript" src="', $settings['default_theme_url'], '/scripts/suggest.js?fin20"></script>
+	<script type="text/javascript"><!-- // --><![CDATA[
+		var oModeratorSuggest = new smc_AutoSuggest({
+			sSelf: \'oModeratorSuggest\',
+			sSessionId: \'', $context['session_id'], '\',
+			sSessionVar: \'', $context['session_var'], '\',
+			sSuggestId: \'famer\',
+			sControlId: \'famer\',
+			sSearchType: \'member\',
+			bItemList: false,
+			sPostName: \'famer_single\',
+			sURLMask: \'action=profile;u=%item_id%\',
+			sTextDeleteItem: \'', $txt['autosuggest_delete_item'], '\',
+			sItemListContainerId: \'famer_container\',
+			aListItems: [],
+		});
+	// ]]></script>';
 }
 
 /**
@@ -395,8 +394,9 @@ function template_adminset()
  */
 function template_editClass()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
-	echo'<div class="cat_bar">
+	global $context, $txt, $scripturl;
+	echo'
+	<div class="cat_bar">
 			<h3 class="catbg">
 				', $context['hof_current_class']['title'], '
 			</h3>

@@ -1,4 +1,4 @@
-![Latest Version](https://img.shields.io/github/release/SychO9/smf-fa-board-icons.svg?style=flat-square)
+![Latest Version](https://img.shields.io/github/release/SychO9/smf-hall-of-fame.svg?style=flat-square)
 ![SMF2.0](https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square)
 ![SMF2.1](https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green)

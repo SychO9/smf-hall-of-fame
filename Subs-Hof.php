@@ -35,14 +35,21 @@ function hof_action_hook(&$actionArray)
 function hof_admin_hook(&$admin_areas)
 {
 	global $txt, $modSettings, $scripturl, $sc;
-	
-    $admin_areas['config']['areas'] += array(
+
+	$icon = 'posters';
+	if(!defined('SMF_VERSION') || (defined('SMF_VERSION') && strpos(SMF_VERSION, '2.1')===false))
+		$icon = 'themes.gif';
+
+	if(!empty($modSettings['hof_menu_icon']))
+		$icon = $modSettings['hof_menu_icon'];
+
+	$admin_areas['config']['areas'] += array(
 		'hof' => array(
 			'label' => $txt['hof'],
 			'file' => 'Hof.php',
 			'function' => 'Hof',
 			'custom_url' => $scripturl . '?action=admin;area=hof;sa=admin',
-			'icon' => 'themes.gif',
+			'icon' => $icon,
 		),
 	);
 }
@@ -61,14 +68,14 @@ function hof_menu_hook(&$menu_buttons)
 			'title' => !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof'],
 			'href' => $scripturl . '?action=hof',
 			'show' => !empty($modSettings['hof_active']),
-			'icon' => '',
+			'icon' => !empty($modSettings['hof_menu_icon']) ? $modSettings['hof_menu_icon'] : 'posters',
 		),
 	);
 	
 	$pos = array_search('login', array_keys($menu_buttons));
 	// Just incase someone decided that removing login array is a good idea -.-
 	if($pos===false) {
-		$menu_buttons = array_merge($hof, $menu_buttons);
+		$menu_buttons = array_merge($menu_buttons, $hof);
 	} else {
 		$menu_buttons = array_merge(
 			array_slice($menu_buttons, 0, $pos),
@@ -76,6 +83,16 @@ function hof_menu_hook(&$menu_buttons)
 			array_slice($menu_buttons, $pos)
 		);
 	}
+}
+
+/**
+ * Loads the css file for 2.1.x
+ * Called By
+ *		integrate_pre_css_output
+ */
+function hof_css()
+{
+	loadCSSFile('hof.css', array('force_current'=>false, 'minimize'=>true), 'smf_hof');
 }
 
 /**

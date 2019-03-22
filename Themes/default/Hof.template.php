@@ -48,37 +48,56 @@ function template_layout2()
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $memberContext, $sc;
 	
 	$alter = true;
-	if(!empty($context['hof_classes'])) {
-		foreach($context['hof_classes'] as $id => $data2)
+	if(!empty($context['hof_classes']))
+	{
+		foreach($context['hof_classes'] as $class_id => $class)
 		{
-			echo'
-			<div class="windowbg', $alter ? '' : '2', '">
-				<span class="topslice"><span></span></span>
-				<div class="content">';
-			
-			echo '
-			<div class="hof_class">
-				<div class="hof_cheader"><h1>', $data2['title'], '</h1><span class="smalltext">', $data2['description'], '</span></div><hr>';
-			
-			$famer = count($context['hof_famers'][$data2['id']]);
-			if(empty($famer))
+			// Hide the class if it has no members
+			if(empty($context['hof_famers'][$class_id]))
 				continue;
 
-			foreach($context['hof_famers'][$data2['id']] as $id => $data)
+			$alter = $alter || $context['is_two_point_one'];
+
+			echo '
+			<div class="hof_class">';
+
+			if($context['is_two_point_one'])
+				echo '
+				<div class="cat_bar">
+					<h3 class="catbg">
+						', $class['title'], '
+					</h3>
+					<div class="desc">', $class['description'], '</div>
+				</div>';
+
+			echo'
+				<div class="windowbg', $alter ? '' : '2', '">
+					<span class="topslice"><span></span></span>
+					<div class="content">';
+			
+			if(!$context['is_two_point_one'])
+				echo '
+				<div class="hof_cheader">
+					<h1>', $class['title'], '</h1>
+					<span class="smalltext">', $class['description'], '</span>
+				</div>
+				<hr>';
+
+			foreach($context['hof_famers'][$class_id] as $key => $famer)
 			{
 				echo'
 						<div class="hof_member">
 							<div class="hof_mImage">
-								<img style="', !empty($modSettings['hof_ewidth']) ? 'width: '.$modSettings['hof_ewidth'].'px;'.(!empty($modSettings['hof_square_avatar']) ? 'height:'.$modSettings['hof_ewidth'].'px;' : '').'' : '', '', $context['hof_border_radius'], '" class="avatar" src="', !empty($data['avatar']['image']) ? 
-									$data['avatar']['href'] : 
+								<img style="', !empty($modSettings['hof_ewidth']) ? 'width: '.$modSettings['hof_ewidth'].'px;'.(!empty($modSettings['hof_square_avatar']) ? 'height:'.$modSettings['hof_ewidth'].'px;' : '').'' : '', '', $context['hof_border_radius'], '" class="avatar" src="', !empty($famer['avatar']['image']) ? 
+									$famer['avatar']['href'] : 
 									$settings['default_theme_url'].'/images/admin/hof_user.png', '" alt="">
 							</div>
 							<div class="hof_who">
 								<h4 class="hof_famer_name">
-									<a href="', $scripturl, '?action=profile;u=', $data['id_member'], '">', $data['realName'], '</a>
+									<a href="', $scripturl, '?action=profile;u=', $famer['id_member'], '"><strong>', $famer['realName'], '</strong></a>
 								</h4>
-								<div class="hof_more">
-									', !empty($data['title']) ? $data['title'] : '', '
+								<div class="hof_more smalltext">
+									', !empty($famer['title']) ? $famer['title'] : '', '
 								</div>
 							</div>
 						</div>';
@@ -95,7 +114,7 @@ function template_layout2()
 		}
 	} else {
 		echo'
-		<div class="windowbg2">
+		<div class="windowbg">
 			<span class="topslice"><span></span></span>
 			<div class="content">'.$txt['hof_empty'].'</div>
 			<span class="botslice clear_right"><span></span></span>
@@ -108,29 +127,36 @@ function template_layout2()
  */
 function template_layout1()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc;
+	global $context, $settings, $txt, $scripturl, $modSettings;
 	
 	$alter = true;
 	if(!empty($context['hof_classes']))
 	{
-		foreach($context['hof_classes'] as $id => $data)
+		foreach($context['hof_classes'] as $class_id => $class)
 		{
+			// Hide the class if it has no members
+			if(empty($context['hof_famers'][$class_id]))
+				continue;
+
+			$alter = $alter || $context['is_two_point_one'];
 			// Show Classes.
 			echo '
 			<div class="windowbg', $alter ? '' : '2', '">
 				<span class="topslice"><span></span></span>
-				<div class="content features">
-					<div class="padding">
-						<img class="features_image png_fix" src="', $settings['default_theme_url'], '/images/admin/hof.png" width="65" alt="', $data['title'], '">
-						<h4 style="    padding-bottom: 0;">', $data['title'], '</h4>
-						<p>', $data['description'], '</p>
+				<div class="content hof_features">
+					<div class="hof_feat_ele">
+						<img class="features_image png_fix" src="', $settings['default_theme_url'], '/images/admin/hof.png" width="65" alt="', $class['title'], '">
+					</div>
+					<div class="hof_feat_ele hof_grow">
+						<h4 style="padding-bottom: 0;">', $class['title'], '</h4>
+						<p>', $class['description'], '</p>
 						<hr>
 						<div class="hof_members">';
-						if(!empty($context['hof_famers'][$data['id']]))
-							foreach($context['hof_famers'][$data['id']] as $id=>$data) {
+						if(!empty($context['hof_famers'][$class_id]))
+							foreach($context['hof_famers'][$class_id] as $id=>$famer) {
 								echo '
-								<a href="', $scripturl, '?action=profile;u=', $data['id_member'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
-									'.$data['realName'].'
+								<a href="', $scripturl, '?action=profile;u=', $famer['id_member'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
+									'.$famer['realName'].'
 								</a>';
 							}
 						echo'
@@ -159,8 +185,12 @@ function template_layout3()
 	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc, $memberContext;
 	
 	if(!empty($context['hof_classes'])) {
-		foreach($context['hof_classes'] as $id => $data)
+		foreach($context['hof_classes'] as $class_id => $class)
 		{
+			// Hide the class if it has no members
+			if(empty($context['hof_famers'][$class_id]))
+				continue;
+
 			// Show Classes.
 			echo '
 			<table width="100%" cellspacing="0" class="hof_table table_grid">
@@ -169,35 +199,37 @@ function template_layout3()
 						<th colspan="2">
 							<div class="cat_bar">
 								<h3 class="catbg">
-									', $data['title'], '
+									', $class['title'], '
 								</h3>
 							</div>
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					', !empty($data['description']) ? '<tr class="windowbg hof_description"><td colspan="2"><smalltext>'.$data['description'].'</smalltext></td></tr>' : '';
+					', !empty($class['description']) ? '<tr class="windowbg hof_description"><td colspan="2"><smalltext>'.$class['description'].'</smalltext></td></tr>' : '';
+
 				$alter = true;
-				if(!empty($context['hof_famers'][$data['id']]))
-					foreach($context['hof_famers'][$data['id']] as $id=>$data2)
-					{
-						$dateR = explode(', ', timeformat($data2['dateRegistered'], false));
-						
-						echo '
-						<tr class="windowbg', $alter ? 2 : '', '">
-							<td class="hof_features">
-									<img style="', $context['hof_border_radius'], '" class="avatar" src="', !empty($data2['avatar']['image']) ? 
-										$data2['avatar']['href'] : 
-										$settings['default_theme_url'].'/images/admin/hof_user.png', '" alt="">
-									<div class="hof_table_det">
-										<div class="nam"><a href="', $scripturl, '?action=profile;u=', $data2['id_member'], '">'.$data2['realName'].'</a></div>
-										<div class="smalltext">', $data2['title'], '</div>
-									</div>
-							</td>
-							<td align="right" class="hof_reg">', $txt['member_since'], ': <strong>', $dateR[0], ', ', $dateR[1], '</strong></td>
-						</tr>';
-						$alter = !$alter;
-					}
+
+				foreach($context['hof_famers'][$class_id] as $id=>$data2)
+				{
+					$alter = $alter || $context['is_two_point_one'];
+					$dateR = explode(', ', timeformat($data2['dateRegistered'], false));
+
+					echo '
+					<tr class="windowbg', $alter ? '' : '2', '">
+						<td class="hof_features">
+								<img style="', $context['hof_border_radius'], '" class="avatar" src="', !empty($data2['avatar']['image']) ? 
+									$data2['avatar']['href'] : 
+									$settings['default_theme_url'].'/images/admin/hof_user.png', '" alt="">
+								<div class="hof_table_det">
+									<div class="nam"><a href="', $scripturl, '?action=profile;u=', $data2['id_member'], '">'.$data2['realName'].'</a></div>
+									<div class="smalltext">', $data2['title'], '</div>
+								</div>
+						</td>
+						<td align="right" class="hof_reg">', $txt['member_since'], ': <strong>', $dateR[0], ', ', $dateR[1], '</strong></td>
+					</tr>';
+					$alter = !$alter;
+				}
 			echo'</tbody>
 			</table>';
 			
@@ -218,18 +250,15 @@ function template_layout3()
  */
 function template_adminset()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings, $smcFunc;
-
-	// A successful or failed operation ?
-	$state = !empty($_REQUEST['state']) ? $smcFunc['htmlspecialchars']($_REQUEST['state'], ENT_QUOTES) : '';
+	global $context, $settings, $txt, $scripturl, $modSettings, $smcFunc;
 	// Success
-	if(!empty($state) && $state == "success")
+	if(isset($context['success_save']) && $context['success_save'])
 		echo'
-	<div class="windowbg" id="profile_success">
+	<div class="infobox" id="profile_success">
 		', $txt['hof_success'], '
 	</div>';
 	// Error
-	elseif(!empty($state) && $state == "error")
+	elseif(isset($context['success_save']) && !$context['success_save'])
 		echo'
 	<div class="errorbox">
 		<strong>', $txt['hof_error_unknown'], '</strong><br/>
@@ -237,7 +266,7 @@ function template_adminset()
 	
 	echo'
 	<div class="hof_admin">
-		<div class="hof_upper_admin">
+		<div class="hof_upper_admin', $context['is_two_point_one'] ? '' : ' two_o', '">
 			<div class="hof_class_list">
 				<div class="cat_bar">
 					<h3 class="catbg">
@@ -249,6 +278,7 @@ function template_adminset()
 	if(!empty($context['hof_classes']))
 		foreach($context['hof_classes'] as $class_id => $class)
 		{
+			$alter = $alter || $context['is_two_point_one'];
 			// Show Classes.
 			echo '
 				<div class="windowbg', $alter ? '' : '2', '">
@@ -258,19 +288,23 @@ function template_adminset()
 							<img class="hof_feat_img" src="', $settings['default_theme_url'], '/images/admin/hof.png" width="65" alt="', $class['title'], '">
 						</div>
 						<div class="hof_feat_ele hof_grow">
-							<h4 style="padding-top: 5px">
+							<h4>
 								', $class['title'], '
 								<a href="', $scripturl, '?action=hof;sa=edit;class=', $class_id,'">
-									<img src="', $settings['default_theme_url'], '/images/icons/modify_inline.gif" id="switch_cd" style="vertical-align:middle" alt="', $txt['hof_modify'], '" title="', $txt['hof_modify'], '">
+									', $context['is_two_point_one'] ? '<span class="main_icons quick_edit_button"></span>' : '<img src="'.$settings['default_theme_url'].'/images/icons/modify_inline.gif" id="switch_cd" style="vertical-align:middle" alt="'.$txt['hof_modify'].'" title="'.$txt['hof_modify'].'">', '
 								</a>
 							</h4>
 							<p>', $class['description'], '<br/>';
 
 					if(!empty($context['hof_famers'][$class_id]))
-						foreach($context['hof_famers'][$class_id] as $famer_id => $famer) {
+						foreach($context['hof_famers'][$class_id] as $famer_id => $famer)
+						{
 							echo '
 								<div class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">'.$famer['realName'].'
-								<a href="', $scripturl, '?action=hof;sa=remove_famer;id=', $famer_id, ';class=', $class_id, '"><img src="', $settings['theme_url'], '/images/pm_recipient_delete.gif" alt="', $txt['hof_delete_famer'], '" title="', $txt['hof_delete_famer'], '" style="margin: 0 0 0 4px;" /></a></div>';
+									<a href="', $scripturl, '?action=hof;sa=remove_famer;id=', $famer_id, ';class=', $class_id, '">
+										', $context['is_two_point_one'] ? '<span class="main_icons delete"></span>' : '<img src="'.$settings['theme_url'].'/images/pm_recipient_delete.gif" alt="'.$txt['hof_delete_famer'].'" title="'.$txt['hof_delete_famer'].'"/>', '
+									</a>
+								</div>';
 						}
 
 			echo'
@@ -312,7 +346,7 @@ function template_adminset()
 							<form action="', $scripturl, '?action=hof;sa=add_class" method="post">
 							<input id="title" name="title" type="text" maxlength="50" placeholder="', $txt['hof_title'], '" required/><br/>
 							<textarea id="description" name="description" placeholder="', $txt['hof_description'], '"></textarea><br/>
-							<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
+							<input class="button active" id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
 						</form>
 						</div>
 						<span class="botslice"><span></span></span>
@@ -349,7 +383,7 @@ function template_adminset()
 
 								echo'
 								</select><br/>
-								<input id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
+								<input class="button active" id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
 							</form>'; 
 						}
 						else 
@@ -401,7 +435,7 @@ function template_editClass()
 				', $context['hof_current_class']['title'], '
 			</h3>
 		</div>
-	<div class="windowbg2">
+	<div class="windowbg">
 		<span class="topslice"><span></span></span>
 		<div class="content features">
 			<form action="', $scripturl, '?action=hof;sa=update_class" method="post">

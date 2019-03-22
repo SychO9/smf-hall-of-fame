@@ -19,15 +19,23 @@ elseif (!defined('SMF'))
   die('<b>Error:</b> Cannot install - please verify you put this in the same place as SMF\'s index.php.');
 
 	db_extend('packages');
-  
+
 	// Install Settings.
-	updateSettings(array('hof_layout' => 2));
-	updateSettings(array('hof_active' => 1));
-	updateSettings(array('hof_globalTitle' => 'Hall Of Fame'));
-	updateSettings(array('hof_ewidth' => '120'));
-	updateSettings(array('hof_border_radius' => '100%'));
-	updateSettings(array('hof_square_avatar' => 1));
-	
+	if(empty($modSettings['hof_layout']))
+		updateSettings(array('hof_layout' => 2));
+	if(empty($modSettings['hof_active']))
+		updateSettings(array('hof_active' => 1));
+	if(empty($modSettings['hof_globalTitle']))
+		updateSettings(array('hof_globalTitle' => 'Hall Of Fame'));
+	if(empty($modSettings['hof_ewidth']))
+		updateSettings(array('hof_ewidth' => '120'));
+	if(empty($modSettings['hof_border_radius']))
+		updateSettings(array('hof_border_radius' => '100%'));
+	if(empty($modSettings['hof_square_avatar']))
+		updateSettings(array('hof_square_avatar' => 1));
+	if(empty($modSettings['hof_menu_icon']))
+		updateSettings(array('hof_menu_icon' => 'posters'));
+
 	// Create 'hof' Table which contains all members added to any classes.
 	$db_columns = array(
 			array(

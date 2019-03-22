@@ -21,8 +21,13 @@ if (!defined('SMF'))
 function Hof()
 {
 	global $context, $scripturl, $txt, $smcFunc, $settings, $modSettings;
-	// Load the css file
-	$context['html_headers'] = $context['html_headers'].'<link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/hof.css" /><link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/admin.css?fin20" />';
+	// Which version is this ?
+	$context['is_two_point_one'] = true;
+	if(!defined('SMF_VERSION') || (defined('SMF_VERSION') && strpos(SMF_VERSION, '2.1')===false))
+		$context['is_two_point_one'] = false;
+	// Load the css file, only in 2.0, 2.1 uses a hook to load the css file called by integrate_pre_css_output
+	if(!$context['is_two_point_one'])
+		$context['html_headers'] = $context['html_headers'].'<link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/hof.css" /><link rel="stylesheet" type="text/css" href="'.$settings['default_theme_url'].'/css/admin.css?fin20" />';
 	// Template, Language
 	loadTemplate('Hof');
 	// Seriously where am I ?
@@ -150,8 +155,10 @@ function addFamer()
 {
 	global $smcFunc;
 	isAllowedTo('admin_forum');
+	
 	// Sanitize
 	$member_name = !empty($_POST['famer']) ? $smcFunc['htmlspecialchars']($_POST['famer'], ENT_QUOTES) : '';
+	$_SESSION['save_success'] = false;
 	// query
 	if(!empty($member_name))
 	{
@@ -196,14 +203,11 @@ function addFamer()
 				),
 				array('id_member', 'id_class')
 			);
-			redirectexit('action=admin;area=hof;sa=admin;state=success');
+			$_SESSION['save_success'] = true;
 		}
-		elseif($duplicate)
-			redirectexit('action=admin;area=hof;sa=admin;state=fail');
-		else
-			redirectexit('action=admin;area=hof;sa=admin;state=fail');
 	}
-	else redirectexit('action=admin;area=hof;sa=admin;state=fail');
+
+	redirectexit('action=admin;area=hof;sa=admin');
 }
 
 /**
@@ -280,7 +284,7 @@ function ViewHof()
 	{
 		$query2 = $smcFunc['db_query']('', "
 			SELECT 
-				mem.id_group, mem.avatar, mem.id_member, mem.real_name, mem.email_address, mem.hide_email,
+				mem.id_group, mem.avatar, mem.id_member, mem.real_name,
 				mem.date_registered, mem.avatar, mem.usertitle, h.id_member, h.date_added, h.id_class,
 				IFNULL(a.id_attach, 0) AS id_attach, a.filename, a.attachment_type
 			FROM ({db_prefix}members as mem, {db_prefix}hof as h) 
@@ -304,8 +308,6 @@ function ViewHof()
 				'title' => $row2['usertitle'],
 				'id_member' => $row2['id_member'],
 				'realName' => $row2['real_name'],
-				'emailAddress' => $row2['email_address'],
-				'hideEmail' => $row2['hide_email'],
 				'dateRegistered' => $row2['date_registered'],
 				'id_group' => $row2['id_group'],
 			);
@@ -323,7 +325,11 @@ function HofSettings()
 	global $context, $mbname, $txt, $smcFunc, $modSettings, $sourcedir, $scripturl;
 	// Again
 	isAllowedTo('admin_forum');
-
+	if(isset($_SESSION['save_success']))
+	{
+		$context['success_save'] = $_SESSION['save_success'];
+		unset($_SESSION['save_success']);
+	}
 	// Helper file
 	require_once($sourcedir . '/ManageServer.php');
 
@@ -332,6 +338,7 @@ function HofSettings()
 	// Available Settings
 	$config_vars = array(
 		array('text', 'hof_globalTitle'),
+		$context['is_two_point_one'] ? array('text', 'hof_menu_icon') : array(),
 		array('check', 'hof_active', 'subtext'=> (empty($modSettings['hof_active']) ? '<a href="'.$scripturl.'?action=hof" target="_blank" rel="noopener">'.$txt['preview'].'</a>' : '')),
 		array('select', 'hof_layout', array(1 => $txt['hof_layout_1'], 2 => $txt['hof_layout_2'], 3 => $txt['hof_layout_3'])),
 		array('text', 'hof_ewidth', 'javascript' => ($readonly ? 'readonly="readonly"' : '')),
@@ -382,7 +389,7 @@ function HofSettings()
 	{
 		$query2 = $smcFunc['db_query']('', "
 			SELECT 
-				m.id_member, m.id_group, m.id_member, m.real_name, m.email_address, m.hide_email, m.posts,
+				m.id_member, m.id_group, m.id_member, m.real_name, m.posts,
 				m.last_login, m.date_registered, h.id_member, h.date_added, h.id_class
 			FROM {db_prefix}members as m
 				LEFT JOIN {db_prefix}hof as h ON (m.id_member = h.id_member)
@@ -398,8 +405,6 @@ function HofSettings()
 				'id_group' => $row2['id_group'],
 				'id_member' => $row2['id_member'],
 				'realName' => $row2['real_name'],
-				'emailAddress' => $row2['email_address'],
-				'hideEmail' => $row2['hide_email'],
 				'lastLogin' => $row2['last_login'],
 				'dateRegistered' => $row2['date_registered'],
 				'posts' => $row2['posts'],

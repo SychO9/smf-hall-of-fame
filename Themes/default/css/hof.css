@@ -27,11 +27,8 @@
 	padding: 10px 0;
 	color: black;
 }
-.hof_who a {
-	color: black;
-}
-.hof_who div {
-	font-size: 11px;
+.hof_who strong {
+	font-weight: 600;
 }
 .hof_mImage:hover img {
 	filter: brightness(110%);
@@ -43,7 +40,7 @@
 }
 .hof_famer_name {
 	font-size: 15px;
-	margin: 2px 0 7px;
+	margin: 2px 0 -2px;
 }
 .hof_table img.avatar {
 	width: 40px;
@@ -68,11 +65,13 @@ table.hof_table th {
 	padding: 8px 8px;
 }
 .hof_upper_admin input, .hof_upper_admin textarea, .hof_upper_admin select {
-	padding: 10px 12px;
 	margin: 1px 0;
 	width: 100%;
 	max-width: 100%;
 	box-sizing: border-box;
+}
+.hof_upper_admin.two_o input, .hof_upper_admin.two_o textarea, .hof_upper_admin.two_o select {
+	padding: 10px 12px;
 }
 .hof_layout a {
 	background: rgba(255, 255, 255, 0.46);
@@ -138,4 +137,7 @@ table.hof_table td {
 .hof_grow {
 	flex-grow: 1;
 	padding: 0 10px;
+}
+.hof_more {
+	opacity: 0.7;
 }

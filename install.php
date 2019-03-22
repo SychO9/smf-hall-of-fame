@@ -35,8 +35,7 @@ elseif (!defined('SMF'))
 					'type' => 'mediumint',
 					'size' => 8,
 					'null' => false,
-					'unsigned' => true,
-					'default' => ''
+					'unsigned' => true
 			),
 			array(
 					'name' => 'date_added',
@@ -44,15 +43,14 @@ elseif (!defined('SMF'))
 					'size' => 11,
 					'null' => false,
 					'unsigned' => true,
-					'default' => ''
+					'default' => '0'
 			),
 			array(
 					'name' => 'id_class',
 					'type' => 'mediumint',
 					'size' => 8,
 					'null' => false,
-					'unsigned' => true,
-					'default' => ''
+					'unsigned' => true
 			),
 	);
 	$smcFunc['db_create_table']('{db_prefix}hof', $db_columns, array(), array(), 'ignore', 'fatal');

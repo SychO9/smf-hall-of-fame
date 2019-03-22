@@ -103,5 +103,5 @@ function hof_css()
 function hof_credits()
 {
 	global $context;
-	$context['copyrights']['mods'][] = '<a href="http://custom.simplemachines.org/mods/index.php?mod=4185" target="_blank" class="new_win" rel="noopener">SMF Hall Of Fame</a> v1.1, by <a href="https://github.com/SychO9">SychO</a> &copy; 2019';
+	$context['copyrights']['mods'][] = '<a href="http://custom.simplemachines.org/mods/index.php?mod=4185" target="_blank" class="new_win" rel="noopener">SMF Hall Of Fame</a> v1.2, by <a href="https://github.com/SychO9">SychO</a> &copy; 2019';
 }

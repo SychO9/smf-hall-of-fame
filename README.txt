@@ -1,4 +1,4 @@
-[img]https://img.shields.io/github/release/SychO9/smf-hall-of-fame.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/license-Apache 2-green.svg?style=flat-square&color=green[/img][font=Segoe UI][size=15px]
+[img]https://img.shields.io/github/release/SychO9/smf-hall-of-fame.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/license-Apache%202-green.svg?style=flat-square&color=green[/img][font=Segoe UI][size=15px]
 [b][size=19px]SMF Hall Of Fame Mod[/size][/b]
 A Hall Of Fame Page Where You can Add Notable Members.
 Compatible with SMF2.0 & SMF2.1

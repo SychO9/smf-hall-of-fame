@@ -1,7 +1,7 @@
-[img]https://img.shields.io/github/release/SychO9/smf-hall-of-fame.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green[/img][font=Segoe UI][size=15px]
+[img]https://img.shields.io/github/release/SychO9/smf-hall-of-fame.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat-square[/img]  [img]https://img.shields.io/badge/license-Apache 2-green.svg?style=flat-square&color=green[/img][font=Segoe UI][size=15px]
 [b][size=19px]SMF Hall Of Fame Mod[/size][/b]
-Compatible With: SMF 2.0.x
 A Hall Of Fame Page Where You can Add Notable Members.
+Compatible with SMF2.0 & SMF2.1
 [url=https://github.com/SychO9/smf-hall-of-fame]Github Repository[/url]
 
 [b][size=16px]Changelog[/size][/b]
@@ -27,7 +27,7 @@ A Hall Of Fame Page Where You can Add Notable Members.
  [li]! Mod Creation[/li][/list][/li]
 [/list][font=Segoe UI][size=15px]
 [b][size=16px]Translation[/size][/b]
-* Spanish Translation By: [url=https://github.com/RockLee-BC]Rock Lee[/url]
+* Spanish Latin Translation By: [url=https://github.com/RockLee-BC]Rock Lee[/url]
 * Russian Translation By: [url=https://github.com/realdigger]digger[/url]
 
 [b][size=16px]License[/size][/b]

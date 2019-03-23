@@ -1,11 +1,12 @@
 ![Latest Version](https://img.shields.io/github/release/SychO9/smf-hall-of-fame.svg?style=flat-square)
 ![SMF2.0](https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat-square)
 ![SMF2.1](https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green)
+![License](https://img.shields.io/badge/license-Apcahe 2-green.svg?style=flat-square&color=green)
+![GitHub All Releases](https://img.shields.io/github/downloads/SychO9/smf-hall-of-fame/total.svg?color=magenta&style=flat-square)
 ## SMF Hall Of Fame Mod
-Compatible With: SMF 2.0.x
-
 A Hall Of Fame Page Where You can Add Notable Members.
+
+Compatible with **SMF2.0** & **SMF2.1**
 
 ### Changelog
 * Version 1.2
@@ -29,7 +30,7 @@ A Hall Of Fame Page Where You can Add Notable Members.
 	- ! Mod Creation
 
 ### Translation
-* Spanish Translation By: [Rock Lee](https://github.com/RockLee-BC)
+* Spanish Latin Translation By: [Rock Lee](https://github.com/RockLee-BC)
 * Russian Translation By: [digger](https://github.com/realdigger)
 
 ### License

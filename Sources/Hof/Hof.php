@@ -11,7 +11,6 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-// First of all, we make sure we are accessing the source file via SMF so that people can not directly access the file.
 if (!defined('SMF'))
 	die('Hack Attempt...');
 

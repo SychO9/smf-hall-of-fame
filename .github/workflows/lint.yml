@@ -17,5 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: 'PHP Syntax Checker (Lint) ${{ matrix.php }}'
-      uses: 'StephaneBour/actions-php-lint@${{ matrix.php }}'
+    - name: Set PHP ${{ matrix.php }}
+      run: sudo update-alternatives --set php $(which php${{ matrix.php }})
+
+    - name: 'PHP ${{ matrix.php }}'
+      uses: overtrue/phplint@master
+      with:
+        path: .
+        options: --exclude=*.log

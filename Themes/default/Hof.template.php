@@ -336,6 +336,7 @@ function template_adminset()
 
 			$alter = !$alter;
 		}
+	}
 	else
 		echo'
 				<div class="windowbg">

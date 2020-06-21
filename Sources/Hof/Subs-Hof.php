@@ -1,9 +1,9 @@
 <?php
 /**
  * @package SMF Hall Of Fame (HOF)
- * @author SychO (M.S) http://sycho.22web.org
- * @version 1.2
- * @license Copyright 2019
+ * @author SychO (M.S) https://github.com/SychO9
+ * @version 1.3
+ * @license Copyright 2020
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ if (!defined('SMF'))
  */
 function hof_action_hook(&$actionArray)
 {
-	global $sourcedir, $modSettings;
 	loadLanguage('Hof');
+
 	$actionArray += array('hof' => array('Hof.php', 'Hof'));
 }
 
@@ -33,13 +33,13 @@ function hof_action_hook(&$actionArray)
  */
 function hof_admin_hook(&$admin_areas)
 {
-	global $txt, $modSettings, $scripturl, $sc;
+	global $txt, $modSettings, $scripturl;
 
 	$icon = 'posters';
-	if(!defined('SMF_VERSION') || (defined('SMF_VERSION') && strpos(SMF_VERSION, '2.1') === false))
+	if (!defined('SMF_VERSION') || (defined('SMF_VERSION') && strpos(SMF_VERSION, '2.1') === false))
 		$icon = 'themes.gif';
 
-	if(!empty($modSettings['hof_menu_icon']))
+	if (!empty($modSettings['hof_menu_icon']))
 		$icon = $modSettings['hof_menu_icon'];
 
 	$admin_areas['config']['areas'] += array(
@@ -60,8 +60,8 @@ function hof_admin_hook(&$admin_areas)
  */
 function hof_menu_hook(&$menu_buttons)
 {
-	global $sourcedir, $modSettings, $scripturl, $txt;
-	
+	global $modSettings, $scripturl, $txt;
+
 	$hof = array(
 		'hof' => array(
 			'title' => !empty($modSettings['hof_globalTitle']) ? $modSettings['hof_globalTitle'] : $txt['hof'],
@@ -70,10 +70,10 @@ function hof_menu_hook(&$menu_buttons)
 			'icon' => !empty($modSettings['hof_menu_icon']) ? $modSettings['hof_menu_icon'] : 'posters',
 		),
 	);
-	
+
 	$pos = array_search('login', array_keys($menu_buttons));
 	// Just incase someone decided that removing login array is a good idea -.-
-	if($pos===false) {
+	if ($pos===false) {
 		$menu_buttons = array_merge($menu_buttons, $hof);
 	} else {
 		$menu_buttons = array_merge(
@@ -91,7 +91,10 @@ function hof_menu_hook(&$menu_buttons)
  */
 function hof_css()
 {
-	loadCSSFile('hof.css', array('force_current'=>false, 'minimize'=>true), 'smf_hof');
+	loadCSSFile('hof.css', array(
+		'force_current' => false,
+		'minimize' => true
+	), 'smf_hof');
 }
 
 /**
@@ -102,5 +105,6 @@ function hof_css()
 function hof_credits()
 {
 	global $context;
+
 	$context['copyrights']['mods'][] = '<a href="http://custom.simplemachines.org/mods/index.php?mod=4185" target="_blank" class="new_win" rel="noopener">SMF Hall Of Fame</a> v1.2, by <a href="https://github.com/SychO9">SychO</a> &copy; 2019';
 }

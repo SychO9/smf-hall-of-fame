@@ -1,9 +1,9 @@
 <?php
 /**
  * @package SMF Hall Of Fame (HOF)
- * @author SychO (M.S) http://sycho.22web.org
- * @version 1.2
- * @license Copyright 2019
+ * @author SychO (M.S) https://github.com/SychO9
+ * @version 1.3
+ * @license Copyright 2020
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

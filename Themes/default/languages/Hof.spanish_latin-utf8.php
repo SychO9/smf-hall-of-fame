@@ -1,16 +1,16 @@
 <?php
 /**
  * @package SMF Hall Of Fame (HOF)
- * @author SychO (M.S) http://sycho.22web.org
- * @version 1.2
- * @license Copyright 2019
+ * @author SychO (M.S) https://github.com/SychO9
+ * @version 1.3
+ * @license Copyright 2020
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Spanish translation by Rock Lee 
+ * Spanish translation by Rock Lee
  * https://www.bombercode.net Copyright 2014-2019
  */
 

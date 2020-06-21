@@ -16,24 +16,24 @@
  */
 function template_main()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings, $memberContext;
+	global $context, $settings, $txt, $scripturl, $modSettings;
 
-	if(empty($modSettings['hof_active']))
+	if (empty($modSettings['hof_active']))
 		echo '
-		<div class="errorbox">
-			', $txt['hof_unactive'], '
-		</div>';
+	<div class="errorbox">
+		', $txt['hof_unactive'], '
+	</div>';
 
-	if(!empty($modSettings['hof_border_radius']))
+	if (!empty($modSettings['hof_border_radius']))
 		$border_radius = strpos($modSettings['hof_border_radius'], '%') !== false ? $modSettings['hof_border_radius'] : $modSettings['hof_border_radius'].'px';
 
 	$border_radius = !empty($border_radius) ? 'border-radius:'.$border_radius : '';
 
 	$context['hof_border_radius'] = $border_radius;
 
-	if((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 1) || empty($modSettings['hof_layout']))
+	if ((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 1) || empty($modSettings['hof_layout']))
 		template_layout1();
-	elseif((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 3) || empty($modSettings['hof_layout']))
+	elseif ((!empty($modSettings['hof_layout']) && $modSettings['hof_layout'] == 3) || empty($modSettings['hof_layout']))
 		template_layout3();
 	// I don't remember why but layout 2 is the default one..
 	else
@@ -45,15 +45,15 @@ function template_main()
  */
 function template_layout2()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings, $memberContext, $sc;
-	
+	global $context, $settings, $txt, $scripturl, $modSettings;
+
 	$alter = true;
-	if(!empty($context['hof_classes']))
+	if (!empty($context['hof_classes']))
 	{
-		foreach($context['hof_classes'] as $class_id => $class)
+		foreach ($context['hof_classes'] as $class_id => $class)
 		{
 			// Hide the class if it has no members
-			if(empty($context['hof_famers'][$class_id]))
+			if (empty($context['hof_famers'][$class_id]))
 				continue;
 
 			$alter = $alter || $context['is_two_point_one'];
@@ -61,7 +61,7 @@ function template_layout2()
 			echo '
 			<div class="hof_class">';
 
-			if($context['is_two_point_one'])
+			if ($context['is_two_point_one'])
 				echo '
 				<div class="cat_bar">
 					<h3 class="catbg">
@@ -74,22 +74,22 @@ function template_layout2()
 				<div class="windowbg', $alter ? '' : '2', '">
 					<span class="topslice"><span></span></span>
 					<div class="content">';
-			
-			if(!$context['is_two_point_one'])
-				echo '
-				<div class="hof_cheader">
-					<h1>', $class['title'], '</h1>
-					<span class="smalltext">', $class['description'], '</span>
-				</div>
-				<hr>';
 
-			foreach($context['hof_famers'][$class_id] as $key => $famer)
+			if (!$context['is_two_point_one'])
+				echo '
+						<div class="hof_cheader">
+							<h1>', $class['title'], '</h1>
+							<span class="smalltext">', $class['description'], '</span>
+						</div>
+						<hr>';
+
+			foreach ($context['hof_famers'][$class_id] as $key => $famer)
 			{
 				echo'
 						<div class="hof_member">
 							<div class="hof_mImage">
-								<img style="', !empty($modSettings['hof_ewidth']) ? 'width: '.$modSettings['hof_ewidth'].'px;'.(!empty($modSettings['hof_square_avatar']) ? 'height:'.$modSettings['hof_ewidth'].'px;' : '').'' : '', '', $context['hof_border_radius'], '" class="avatar" src="', !empty($famer['avatar']['image']) ? 
-									$famer['avatar']['href'] : 
+								<img style="', !empty($modSettings['hof_ewidth']) ? 'width: '.$modSettings['hof_ewidth'].'px;'.(!empty($modSettings['hof_square_avatar']) ? 'height:'.$modSettings['hof_ewidth'].'px;' : '').'' : '', '', $context['hof_border_radius'], '" class="avatar" src="', !empty($famer['avatar']['image']) ?
+									$famer['avatar']['href'] :
 									$settings['default_theme_url'].'/images/admin/hof_user.png', '" alt="">
 							</div>
 							<div class="hof_who">
@@ -102,17 +102,20 @@ function template_layout2()
 							</div>
 						</div>';
 			}
-			
+
 			echo'
 					</div>';
-			
+
 			echo'
 				</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
+
 			$alter = !$alter;
 		}
-	} else {
+	}
+	else
+	{
 		echo'
 		<div class="windowbg">
 			<span class="topslice"><span></span></span>
@@ -128,14 +131,14 @@ function template_layout2()
 function template_layout1()
 {
 	global $context, $settings, $txt, $scripturl, $modSettings;
-	
+
 	$alter = true;
-	if(!empty($context['hof_classes']))
+	if (!empty($context['hof_classes']))
 	{
-		foreach($context['hof_classes'] as $class_id => $class)
+		foreach ($context['hof_classes'] as $class_id => $class)
 		{
 			// Hide the class if it has no members
-			if(empty($context['hof_famers'][$class_id]))
+			if (empty($context['hof_famers'][$class_id]))
 				continue;
 
 			$alter = $alter || $context['is_two_point_one'];
@@ -152,13 +155,18 @@ function template_layout1()
 						<p>', $class['description'], '</p>
 						<hr>
 						<div class="hof_members">';
-						if(!empty($context['hof_famers'][$class_id]))
-							foreach($context['hof_famers'][$class_id] as $id=>$famer) {
+
+						if (!empty($context['hof_famers'][$class_id]))
+						{
+							foreach ($context['hof_famers'][$class_id] as $id=>$famer)
+							{
 								echo '
 								<a href="', $scripturl, '?action=profile;u=', $famer['id_member'], '" class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">
 									'.$famer['realName'].'
 								</a>';
 							}
+						}
+
 						echo'
 						</div>
 					</div>
@@ -168,9 +176,10 @@ function template_layout1()
 
 			$alter = !$alter;
 		}
-	} 
+	}
 	else
-		echo'<div class="windowbg">
+		echo '
+			<div class="windowbg">
 				<span class="topslice"><span></span></span>
 				<div class="content">'.$txt['hof_empty_classes'].'</div>
 				<span class="botslice clear_right"><span></span></span>
@@ -182,13 +191,14 @@ function template_layout1()
  */
 function template_layout3()
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings, $sc, $memberContext;
-	
-	if(!empty($context['hof_classes'])) {
-		foreach($context['hof_classes'] as $class_id => $class)
+	global $context, $settings, $txt, $scripturl, $modSettings;
+
+	if (!empty($context['hof_classes']))
+	{
+		foreach ($context['hof_classes'] as $class_id => $class)
 		{
 			// Hide the class if it has no members
-			if(empty($context['hof_famers'][$class_id]))
+			if (empty($context['hof_famers'][$class_id]))
 				continue;
 
 			// Show Classes.
@@ -210,7 +220,7 @@ function template_layout3()
 
 				$alter = true;
 
-				foreach($context['hof_famers'][$class_id] as $id=>$data2)
+				foreach ($context['hof_famers'][$class_id] as $id=>$data2)
 				{
 					$alter = $alter || $context['is_two_point_one'];
 					$dateR = explode(', ', timeformat($data2['dateRegistered'], false));
@@ -218,8 +228,8 @@ function template_layout3()
 					echo '
 					<tr class="windowbg', $alter ? '' : '2', '">
 						<td class="hof_features">
-								<img style="', $context['hof_border_radius'], '" class="avatar" src="', !empty($data2['avatar']['image']) ? 
-									$data2['avatar']['href'] : 
+								<img style="', $context['hof_border_radius'], '" class="avatar" src="', !empty($data2['avatar']['image']) ?
+									$data2['avatar']['href'] :
 									$settings['default_theme_url'].'/images/admin/hof_user.png', '" alt="">
 								<div class="hof_table_det">
 									<div class="nam"><a href="', $scripturl, '?action=profile;u=', $data2['id_member'], '">'.$data2['realName'].'</a></div>
@@ -230,19 +240,19 @@ function template_layout3()
 					</tr>';
 					$alter = !$alter;
 				}
-			echo'</tbody>
+
+			echo '
+				</tbody>
 			</table>';
-			
 		}
 	}
 	else
-	{
-		echo'<div class="windowbg">
+		echo '
+			<div class="windowbg">
 				<span class="topslice"><span></span></span>
 				<div class="content">'.$txt['hof_empty_classes'].'</div>
 				<span class="botslice clear_right"><span></span></span>
 			</div>';
-	}
 }
 
 /**
@@ -251,19 +261,20 @@ function template_layout3()
 function template_adminset()
 {
 	global $context, $settings, $txt, $scripturl, $modSettings, $smcFunc;
+
 	// Success
-	if(isset($context['success_save']) && $context['success_save'])
+	if (isset($context['success_save']) && $context['success_save'])
 		echo'
 	<div class="infobox" id="profile_success">
 		', $txt['hof_success'], '
 	</div>';
 	// Error
-	elseif(isset($context['success_save']) && !$context['success_save'])
+	elseif (isset($context['success_save']) && !$context['success_save'])
 		echo'
 	<div class="errorbox">
 		<strong>', $txt['hof_error_unknown'], '</strong><br/>
 	</div>';
-	
+
 	echo'
 	<div class="hof_admin">
 		<div class="hof_upper_admin', $context['is_two_point_one'] ? '' : ' two_o', '">
@@ -275,10 +286,12 @@ function template_adminset()
 				</div>';
 
 	$alter = true;
-	if(!empty($context['hof_classes']))
-		foreach($context['hof_classes'] as $class_id => $class)
+	if (!empty($context['hof_classes']))
+	{
+		foreach ($context['hof_classes'] as $class_id => $class)
 		{
 			$alter = $alter || $context['is_two_point_one'];
+
 			// Show Classes.
 			echo '
 				<div class="windowbg', $alter ? '' : '2', '">
@@ -296,8 +309,9 @@ function template_adminset()
 							</h4>
 							<p>', $class['description'], '<br/>';
 
-					if(!empty($context['hof_famers'][$class_id]))
-						foreach($context['hof_famers'][$class_id] as $famer_id => $famer)
+					if (!empty($context['hof_famers'][$class_id]))
+					{
+						foreach ($context['hof_famers'][$class_id] as $famer_id => $famer)
 						{
 							echo '
 								<div class="titlebg" style="display:inline-block;padding: 3px 5px;border-radius: 2px;margin: 2px 2px;">'.$famer['realName'].'
@@ -306,6 +320,7 @@ function template_adminset()
 									</a>
 								</div>';
 						}
+					}
 
 			echo'
 							</p>
@@ -330,9 +345,10 @@ function template_adminset()
 					</div>
 					<span class="botslice clear_right"><span></span></span>
 				</div>';
-			
+
 	// Add a Class.
-	echo'	</div>
+	echo'
+			</div>
 			<div class="hof_manage_ui">
 				<div class="hof_add_class">
 					<div class="cat_bar">
@@ -352,7 +368,7 @@ function template_adminset()
 						<span class="botslice"><span></span></span>
 					</div>
 				</div>';
-	
+
 	// Add a User.
 	echo'
 				<div class="hof_add_famer">
@@ -365,7 +381,7 @@ function template_adminset()
 						<span class="topslice"><span></span></span>
 						<div class="content">';
 
-						if(!empty($context['hof_classes']))
+						if (!empty($context['hof_classes']))
 						{
 							echo'
 							<form action="', $scripturl, '?action=hof;sa=add_famer" method="post">
@@ -375,7 +391,7 @@ function template_adminset()
 								<input id="date" name="date" type="hidden" value="', forum_time(false), '"/>
 								<select name="class">';
 
-							foreach($context['hof_classes'] as $class_id => $class)
+							foreach ($context['hof_classes'] as $class_id => $class)
 							{
 								echo'
 									<option value="', $class_id, '" id="', $class_id, '">', $class['title'], '</option>';
@@ -384,9 +400,9 @@ function template_adminset()
 								echo'
 								</select><br/>
 								<input class="button active" id="submit" name="submit" type="submit" value="', $txt['hof_submit'], '"/>
-							</form>'; 
+							</form>';
 						}
-						else 
+						else
 							echo $txt['hof_create_class_first'];
 
 						echo'
@@ -429,7 +445,8 @@ function template_adminset()
 function template_editClass()
 {
 	global $context, $txt, $scripturl;
-	echo'
+
+	echo '
 	<div class="cat_bar">
 			<h3 class="catbg">
 				', $context['hof_current_class']['title'], '
